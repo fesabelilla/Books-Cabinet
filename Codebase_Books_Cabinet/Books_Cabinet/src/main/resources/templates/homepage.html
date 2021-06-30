@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Homepage</title>
+</head>
+<body>
+	<h1>This is home page requested from homecontroller</h1>
+	<form method="post" action="/contactForm">
+		<h1>Your Name</h1>
+		<input type="text" name="fullname" placeholder="Your Name Here">
+		<h1>Message Title</h1>
+		<input type="text" name="title" placeholder="Message Title">
+		<h1>Message</h1>
+		<textarea name="message" placeholder="Your Message Here"></textarea>
+		<br>
+		<input type="submit" value="Send Message"> 
+	</form>
+</body>
+</html>
