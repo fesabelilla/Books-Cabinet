@@ -1,4 +1,4 @@
-package com.project.Books_Cabinet.controller;
+package com.project.Books_Cabinet.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
