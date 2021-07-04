@@ -38,18 +38,19 @@
 					class="topbar__nav d-md-flex justify-content-between align-items-center">
 					<ul class="topbar__nav--left nav ml-md-n3">
 
-						<li th:if="${UserFullName}" class="nav-item"><a
+						<li th:if="${UserSessId}" class="nav-item"><a
 							href="/user/logout" class="nav-link link-black-100"><i
 								class="glph-icon flaticon-question mr-2"></i>Logout</a> <a
 							href="/user/profile" class="nav-link link-black-100"><i
 								class="glph-icon flaticon-question mr-2"></i>Hello, <span
 								th:text="${UserFullName}"></span></a></li>
 
-						<li th:unless="${UserFullName}" class="nav-item"><a
+						<li th:unless="${UserSessId}" class="nav-item"><a
 							href="/user/login" class="nav-link link-black-100"> <i
 								class="glph-icon flaticon-question mr-2"></i>Login
 						</a> <a href="/user/signup" class="nav-link link-black-100"><i
-								class="glph-icon flaticon-phone mr-2"></i>Sign Up</a></li>
+								class="glph-icon flaticon-phone mr-2"></i>Sign Up</a>
+								</li>
 
 					</ul>
 					<ul class="topbar__nav--right nav mr-md-n3">

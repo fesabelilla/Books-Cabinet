@@ -22,11 +22,17 @@ public class HomeController {
 	@RequestMapping("/home")
 	private String homepage(ModelMap mm, Model model) {
 		
-		model.addAttribute("UserSessId", mm.getAttribute("UserSessId"));
+		if (mm.getAttribute("UserSessId") != null) {
+			model.addAttribute("UserSessId", mm.getAttribute("UserSessId"));
+			
+			String fullName = ur.getById((Integer) mm.getAttribute("UserSessId")).getFullName();
+			System.out.println(fullName);
+			model.addAttribute("UserFullName", fullName);
+		}else {
+			
+		}
 		
-		String fullName = ur.getById((Integer) mm.getAttribute("UserSessId")).getFullName();
-		System.out.println(fullName);
-		model.addAttribute("UserFullName", fullName);
+		
 
 		return "/books/books_home.html";
 	}
