@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments :: html_head" />
+<body>
+
+	<header class="border-bottom px-4 px-md-6 py-4">
+		<h2 class="font-size-3 mb-0 d-flex align-items-center">
+			<i class="flaticon-resume mr-3 font-size-5"></i>Create Account
+		</h2>
+	</header>
+
+	<form method="post">
+		<div class="p-4 p-md-6">
+
+			<div class="form-group mb-4">
+				<div class="js-form-message js-focus-state">
+					<label id="signinEmailLabel11" class="form-label"
+						for="signinEmail11">Full Name *</label> <input type="text"
+						class="form-control rounded-0 height-4 px-4" name="FullName"
+						id="signinEmail11" placeholder="Your Name"
+						aria-label="creativelayers088@gmail.com"
+						aria-describedby="signinEmailLabel11" required>
+				</div>
+			</div>
+
+			<div class="form-group mb-4">
+				<div class="js-form-message js-focus-state">
+					<label id="signinEmailLabel11" class="form-label"
+						for="signinEmail11">Email *</label> <input type="email"
+						class="form-control rounded-0 height-4 px-4" name="Email"
+						id="signinEmail11" placeholder="creativelayers088@gmail.com"
+						aria-label="creativelayers088@gmail.com"
+						aria-describedby="signinEmailLabel11" required>
+				</div>
+			</div>
+
+
+			<div class="form-group mb-4">
+				<div class="js-form-message js-focus-state">
+					<label id="signinPasswordLabel11" class="form-label"
+						for="signinPassword11">Password *</label> <input type="password"
+						class="form-control rounded-0 height-4 px-4" name="Password"
+						id="signinPassword11" placeholder="" aria-label=""
+						aria-describedby="signinPasswordLabel11" required>
+				</div>
+			</div>
+
+
+			<div class="form-group mb-4">
+				<div class="js-form-message js-focus-state">
+					<label id="signupConfirmPasswordLabel9" class="form-label"
+						for="signupConfirmPassword9">Confirm Password *</label> <input
+						type="password" class="form-control rounded-0 height-4 px-4"
+						name="confirmPassword" id="signupConfirmPassword9" placeholder=""
+						aria-label="" aria-describedby="signupConfirmPasswordLabel9"
+						required>
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<button type="submit" class="btn btn-block py-3 rounded-0 btn-dark">Create
+					Account</button>
+			</div>
+			<div class="text-center mb-4">
+				<span class="small text-muted">Already have an account?</span> <a
+					class="js-animation-link small" href="/user/login"
+					data-target="#login1" data-link-group="idForm1"
+					data-animation-in="fadeIn">Login </a>
+			</div>
+		</div>
+	</form>
+</body>
+</html>
