@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head" />
+<body>
+
+	<header class="border-bottom px-4 px-md-6 py-4">
+		<h2 class="font-size-3 mb-0 d-flex align-items-center">
+			<i class="flaticon-resume mr-3 font-size-5"></i>Create Account
+		</h2>
+	</header>
+
+	<form method="post" >
+		<div class="p-4 p-md-6">
+
+			<div class="form-group mb-4" th:object="${users}">
+				<div class="js-form-message js-focus-state">
+					<label id="signinEmailLabel11" class="form-label" for="fullName">Full
+						Name *</label> <input type="text"
+						class="form-control rounded-0 height-4 px-4" id="fullName"
+						name="FullName" placeholder="Your Name">
+				</div>
+				<span class="text-danger" th:if="${#fields.hasErrors('FullName')}" th:errors="*{FullName}">FullName Error</span>
+			</div>
+
+			<div class="form-group mb-4" th:object="${login}">
+				<div class="js-form-message js-focus-state">
+					<label id="signinEmailLabel11" class="form-label"
+						for="signinEmail11">Email *</label> <input type="text"
+						class="form-control rounded-0 height-4 px-4" name="Email"
+						id="signinEmail11" placeholder="creativelayers088@gmail.com"
+						aria-label="creativelayers088@gmail.com"
+						aria-describedby="signinEmailLabel11">
+				</div>
+				<span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
+			</div>
+
+
+			<div class="form-group mb-4" th:object="${login}">
+				<div class="js-form-message js-focus-state" >
+					<label id="signinPasswordLabel11" class="form-label"
+						for="signinPassword11">Password *</label> <input type="text"
+						class="form-control rounded-0 height-4 px-4" name="Password"
+						id="signinPassword11" placeholder="">
+				</div>
+				<span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</span>
+			</div>
+
+
+			<div class="form-group mb-4">
+				<div class="js-form-message js-focus-state">
+					<label id="signupConfirmPasswordLabel9" class="form-label"
+						for="signupConfirmPassword9">Confirm Password *</label> <input
+						type="text" class="form-control rounded-0 height-4 px-4"
+						name="confirmPassword" id="signupConfirmPassword9" placeholder="">
+				</div>
+				
+			</div>
+
+			<div class="form-group mb-4" th:object="${login}">
+				<div class="js-form-message js-focus-state">
+					<label class="form-label">I am a/an   </label>
+					<input type="radio" class=""
+						name="userType" checked="checked" required value="g_user" > User
+						<input type="radio" value="seller" class="rounded-0 height-4 px-4"
+						name="userType" required > Proffesional Book Seller
+						
+						<input type="radio" value="publisher" class="rounded-0 height-4 px-4"
+						name="userType" required > Publisher
+						
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<button type="submit" class="btn btn-block py-3 rounded-0 btn-dark">Create
+					Account</button>
+			</div>
+			<div class="text-center mb-4">
+				<span class="small text-muted">Already have an account?</span> <a
+					class="js-animation-link small" href="/user/login"
+					data-target="#login1" data-link-group="idForm1"
+					data-animation-in="fadeIn">Login </a>
+			</div>
+		</div>
+	</form>
+</body>
+</html>

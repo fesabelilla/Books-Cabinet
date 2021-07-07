@@ -1,18 +1,40 @@
 package com.project.Books_Cabinet.Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.project.Books_Cabinet.model.Users;
+import com.project.Books_Cabinet.repository.UserRepo;
+
 @Controller
+@SessionAttributes("UserSessId")
 public class HomeController {
+	
+	@Autowired
+	UserRepo ur;
 
 	@RequestMapping("/home")
-	private String homepage() {
+	private String homepage(ModelMap mm, Model model) {
+		
+		if (mm.getAttribute("UserSessId") != null) {
+			model.addAttribute("UserSessId", mm.getAttribute("UserSessId"));
+			
+			String fullName = ur.getById((Integer) mm.getAttribute("UserSessId")).getFullName();
+			System.out.println(fullName);
+			model.addAttribute("UserFullName", fullName);
+		}else {
+			
+		}
+		
+		
 
-		return "homepage.html";
+		return "/books/books_home.html";
 	}
 
 	@PostMapping("/contactForm")

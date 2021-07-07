@@ -1,0 +1,6 @@
+this is a basic guide for spring boot tips and tricks
+
+
+to return Plain Test from Controller 
+
+use @RequestBody top of the mehtod
