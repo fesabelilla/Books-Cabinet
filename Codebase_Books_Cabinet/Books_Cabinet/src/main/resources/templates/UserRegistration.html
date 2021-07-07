@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: html_head" />
 <body>
 
@@ -9,40 +9,40 @@
 		</h2>
 	</header>
 
-	<form method="post">
+	<form method="post" >
 		<div class="p-4 p-md-6">
 
-			<div class="form-group mb-4">
+			<div class="form-group mb-4" th:object="${users}">
 				<div class="js-form-message js-focus-state">
-					<label id="signinEmailLabel11" class="form-label"
-						for="signinEmail11">Full Name *</label> <input type="text"
-						class="form-control rounded-0 height-4 px-4" name="FullName"
-						id="signinEmail11" placeholder="Your Name"
-						aria-label="creativelayers088@gmail.com"
-						aria-describedby="signinEmailLabel11" required>
+					<label id="signinEmailLabel11" class="form-label" for="fullName">Full
+						Name *</label> <input type="text"
+						class="form-control rounded-0 height-4 px-4" id="fullName"
+						name="FullName" placeholder="Your Name">
 				</div>
+				<span class="text-danger" th:if="${#fields.hasErrors('FullName')}" th:errors="*{FullName}">FullName Error</span>
 			</div>
 
-			<div class="form-group mb-4">
+			<div class="form-group mb-4" th:object="${login}">
 				<div class="js-form-message js-focus-state">
 					<label id="signinEmailLabel11" class="form-label"
-						for="signinEmail11">Email *</label> <input type="email"
+						for="signinEmail11">Email *</label> <input type="text"
 						class="form-control rounded-0 height-4 px-4" name="Email"
 						id="signinEmail11" placeholder="creativelayers088@gmail.com"
 						aria-label="creativelayers088@gmail.com"
-						aria-describedby="signinEmailLabel11" required>
+						aria-describedby="signinEmailLabel11">
 				</div>
+				<span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
 			</div>
 
 
-			<div class="form-group mb-4">
-				<div class="js-form-message js-focus-state">
+			<div class="form-group mb-4" th:object="${login}">
+				<div class="js-form-message js-focus-state" >
 					<label id="signinPasswordLabel11" class="form-label"
-						for="signinPassword11">Password *</label> <input type="password"
+						for="signinPassword11">Password *</label> <input type="text"
 						class="form-control rounded-0 height-4 px-4" name="Password"
-						id="signinPassword11" placeholder="" aria-label=""
-						aria-describedby="signinPasswordLabel11" required>
+						id="signinPassword11" placeholder="">
 				</div>
+				<span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</span>
 			</div>
 
 
@@ -50,10 +50,23 @@
 				<div class="js-form-message js-focus-state">
 					<label id="signupConfirmPasswordLabel9" class="form-label"
 						for="signupConfirmPassword9">Confirm Password *</label> <input
-						type="password" class="form-control rounded-0 height-4 px-4"
-						name="confirmPassword" id="signupConfirmPassword9" placeholder=""
-						aria-label="" aria-describedby="signupConfirmPasswordLabel9"
-						required>
+						type="text" class="form-control rounded-0 height-4 px-4"
+						name="confirmPassword" id="signupConfirmPassword9" placeholder="">
+				</div>
+				
+			</div>
+
+			<div class="form-group mb-4" th:object="${login}">
+				<div class="js-form-message js-focus-state">
+					<label class="form-label">I am a/an   </label>
+					<input type="radio" class=""
+						name="userType" checked="checked" required value="g_user" > User
+						<input type="radio" value="seller" class="rounded-0 height-4 px-4"
+						name="userType" required > Proffesional Book Seller
+						
+						<input type="radio" value="publisher" class="rounded-0 height-4 px-4"
+						name="userType" required > Publisher
+						
 				</div>
 			</div>
 

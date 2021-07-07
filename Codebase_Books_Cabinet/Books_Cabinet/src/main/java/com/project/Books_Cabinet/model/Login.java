@@ -5,49 +5,45 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
-public class Users {
+public class Login {
 	
 	@Id
-	private int UserId;
-	@Column(name = "FullName")
-	@Size(min = 4, max = 40)
-	private String FullName;
-	@Column(unique = true)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int loginId;
+	@Column(unique = true, nullable = false)
+	@NotNull
+	@Email
+	@NotEmpty
 	private String email;
+	@Size(min=4, max=32)
 	private String password;
+	@NotNull
 	private String userType;
 	
-	public Users() {
-		super();
+	public Login() {
+		// TODO Auto-generated constructor stub
 	}
 
-	public Users(int userId, String fullName, String email, String password, String userType) {
+	public Login(int loginId, String email, String password, String userType) {
 		super();
-		UserId = userId;
-		FullName = fullName;
+		this.loginId = loginId;
 		this.email = email;
 		this.password = password;
 		this.userType = userType;
 	}
 
-	public int getUserId() {
-		return UserId;
+	public int getLoginId() {
+		return loginId;
 	}
 
-	public void setUserId(int userId) {
-		UserId = userId;
-	}
-
-	public String getFullName() {
-		return FullName;
-	}
-
-	public void setFullName(String fullName) {
-		FullName = fullName;
+	public void setLoginId(int loginId) {
+		this.loginId = loginId;
 	}
 
 	public String getEmail() {
@@ -73,6 +69,13 @@ public class Users {
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
+
+	@Override
+	public String toString() {
+		return "Login [loginId=" + loginId + ", email=" + email + ", password=" + password + ", userType=" + userType
+				+ "]";
+	}
+	
 	
 	
 
