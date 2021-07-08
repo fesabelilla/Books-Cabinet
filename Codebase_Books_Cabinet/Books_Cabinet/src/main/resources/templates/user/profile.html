@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>My Profile</title>
+</head>
+<body>
+
+<p>Back to <a href="/home">Homepage</a> </p>
+<h1>User Details of <span th:text=${user.fullName}></span> </h1>
+
+<h3>Email: <span th:text=${user.email}></span></h3>
+<h3>Gender: <span th:text=${user.gender}></span></h3>
+
+<p> <a href="/user/profile/edit">Edit Profile</a> </p>
+</body>
+</html>

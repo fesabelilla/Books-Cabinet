@@ -81,7 +81,7 @@ public class UserController {
 		String passwordEncry = getMd5(login.getPassword());
 		login.setPassword(passwordEncry);
 		users.setPassword(passwordEncry);
-		
+
 		System.out.println(getMd5(login.getPassword()));
 		System.out.println(getMd5(login.getPassword()));
 
@@ -112,11 +112,43 @@ public class UserController {
 		}
 		return "redirect:/home";
 	}
-	
+
 	@GetMapping("/user/logout")
 	public String Logout(SessionStatus status) {
 		status.setComplete();
 		return "redirect:/user/login";
+	}
+
+	@GetMapping("/user/profile")
+	public String Profile(ModelMap mm, Model model) {
+		int userId = (int) mm.getAttribute("UserSessId");
+		Users user = ur.getById(userId);
+		model.addAttribute("user", user);
+		return "user/profile.html";
+	}
+
+	@GetMapping("/user/profile/edit")
+	public String EditProfile(Users user, ModelMap mm, Model model) {
+		int userId = (int) mm.getAttribute("UserSessId");
+		user = ur.getById(userId);
+		
+		model.addAttribute("user", user);
+		return "user/editProfile.html";
+	}
+	
+	@PostMapping("/user/profile/edit")
+	public String UpdateProfile(@ModelAttribute Users user, ModelMap mm) {
+		int userId = (int) mm.getAttribute("UserSessId");
+		Users user2 = ur.getById(userId);
+		
+		user2.setFullName(user.getFullName());
+		user2.setPhonenumber(user.getPhonenumber());
+		user2.setGender(user.getGender());
+		user2.setNidOrBirthId(user.getNidOrBirthId());
+		
+		ur.save(user2);
+		
+		return "redirect:/user/profile";
 	}
 
 }
