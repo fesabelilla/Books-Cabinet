@@ -27,4 +27,12 @@ public class HomeController {
 		
 		return mv;
 	}
+	
+	@RequestMapping("/sellerRegistration")
+	private String sellerRegistration() {
+
+		return "sellerRegistration.html";
+	}
+	
+	
 }
