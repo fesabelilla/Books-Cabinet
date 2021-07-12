@@ -1,31 +1,34 @@
 package com.project.Books_Cabinet.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.project.Books_Cabinet.model.Seller;
+import com.project.Books_Cabinet.repository.SellerRepo;
+
 @Controller
 public class HomeController {
 
+	@Autowired
+	SellerRepo sellerRepo;
+	
 	@RequestMapping("/home")
 	private String homepage() {
 
 		return "homepage.html";
 	}
 
-	@PostMapping("/contactForm")
-	private ModelAndView contactForm(String fullname,String message, String title, Model model) {
-		//model.addAttribute("fullname", fullname);
-		//System.out.println(fullname);
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("contact.html");
+	@PostMapping("/sellerForm")
+	private String contactForm(@ModelAttribute Seller seller) {
 		
-		mv.addObject("fullname", fullname);
-		//mv.addObject("title", title);
+		sellerRepo.save(seller);
 		
-		return mv;
+		return "redirect:/home";
 	}
 	
 	@RequestMapping("/sellerRegistration")

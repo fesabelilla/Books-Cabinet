@@ -17,13 +17,13 @@
 		<div class="row">
 			<div class="panel panel-primary">
 				<div class="panel-body">
-					<form method="POST" action="#" role="form">
+					<form method="POST" action="sellerForm" role="form">
 						<div class="form-group">
 							<h2>Create Account</h2>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="signupName">Your Full Name</label>
-							<input id="signupName" type="text" maxlength="50" class="form-control">
+							<input id="signupName" type="text" maxlength="50" class="form-control" name="fullName"></input>
 							<style>
 							  .control-label:after {
 							    content:" *";
@@ -33,21 +33,21 @@
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="signupName">Phone Number</label>
-							<input id="signupName" type="text" maxlength="50" class="form-control">
+							<input id="signupName" type="text" maxlength="50" class="form-control" name="phoneNumber"></input>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="signupName">Address</label>
-							<input id="signupName" type="text" maxlength="50" class="form-control">
+							<input id="signupName" type="text" maxlength="50" class="form-control" name="address"></input>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="signupName">Date of Birth</label>
-							 <input type="date" id="birthday" name="birthday">
+							 <input type="date" id="birthday" name="birthday"></input>
 						</div>
 						
 						<div class="form-group">
 							<label class="control-label"  for="signupName">Seller Type</label>
 
-							<select id="gender" class='bolden'>
+							<select id="gender" class='bolden' type = "text" name = "sellerType">
 							  <option value="shops" >Shops</option>
 							  <option value="publisher">Publisher</option>
 							  <option value="select" selected>Select</option>
@@ -70,7 +70,7 @@
 						<div class="form-group">
 							<label class="control-label"  for="signupName">Gender</label>
 							
-							<select id="gender" class='bolden' maxlength="50">
+							<select id="gender" class='bolden' maxlength="50" type = "text" name ="gender">
 							  <option value="male" >Male</option>
 							  <option value="female">Female</option>
 							  <option value="other">Other</option>
@@ -86,24 +86,18 @@
 						
 						<div class="form-group">
 							<label class="control-label" for="signupName">NID Number/ Birth Certificate Number</label>
-							<input id="signupName" type="text" maxlength="50" class="form-control">
+							<input id="signupName" type="text" maxlength="50" class="form-control" name = "nid"></input>
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="signupEmail">Email</label>
-							<input id="signupEmail" type="email" maxlength="50" class="form-control">
+							<input id="signupEmail" type="email" maxlength="50" class="form-control" name = "email"></input>
 						</div>
-						<div class="form-group">
-							<label class="control-label" for="signupEmailagain">Email again</label>
-							<input id="signupEmailagain" type="email" maxlength="50" class="form-control">
-						</div>
+						
 						<div class="form-group">
 							<label class="control-label" for="signupPassword">Password</label>
-							<input id="signupPassword" type="password" maxlength="25" class="form-control" placeholder="at least 8 characters" length="40">
+							<input id="signupPassword" type="password" maxlength="25" class="form-control" placeholder="at least 8 characters" length="40" name="password"></input>
 						</div>
-						<div class="form-group">
-							<label class="control-label" for="signupPasswordagain">Password again</label>
-							<input id="signupPasswordagain" type="password" maxlength="25" class="form-control">
-						</div>
+						
 						<div class="form-group">
 							<button id="signupSubmit" type="submit" class="btn btn-info btn-block">Create your account</button>
 						</div>
