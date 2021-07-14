@@ -8,6 +8,4 @@ import com.project.Books_Cabinet.model.Seller;
 @Repository
 public interface SellerRepo extends JpaRepository<Seller, Integer>{
 	
-	
-
 }

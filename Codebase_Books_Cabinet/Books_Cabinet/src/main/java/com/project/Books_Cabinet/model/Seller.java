@@ -5,6 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
+import com.sun.istack.NotNull;
 
 
 @Entity
@@ -14,14 +18,25 @@ public class Seller {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "sellerId")
 	private int sId;
+	
+	@NotBlank(message = "Name cannot be blank")
 	private String fullName;
+	
+	@Column(unique=true)
 	private String phoneNumber;
+	
 	private String address;
 	private String birthday;
 	private String sellerType;
 	private String gender;
+	
+	@Column(unique=true)
 	private String nid;
+	
+	@Column(unique=true)
+	@Email(message = "Email should be valid")
 	private String email;
+	
 	private String password;
 	
 	
