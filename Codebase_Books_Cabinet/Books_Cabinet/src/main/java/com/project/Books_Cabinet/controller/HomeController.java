@@ -22,6 +22,7 @@ public class HomeController {
 	SellerRepo sellerRepo;
 	
 	String msg="";
+
 	@ModelAttribute
 	public void welcome(Model m) {
 		m.addAttribute("msg",msg);
@@ -34,46 +35,32 @@ public class HomeController {
 	}
 
 	@PostMapping("/sellerForm")
-	private String contactForm( @ModelAttribute Seller seller) {
+	private String contactForm( @Valid @ModelAttribute Seller seller, BindingResult bindingResult ) {
 	
 		//System.out.println();
 		
 		
 		try {
-			if(seller.getEmail() != null && !seller.getEmail().isEmpty() && seller.getAddress() != null && !seller.getAddress().isEmpty() && 
-					seller.getBirthday() != null && !seller.getBirthday().isEmpty() && seller.getFullName() != null && !seller.getFullName().isEmpty() &&
-					seller.getGender() != null && !seller.getGender().isEmpty() && seller.getNid() != null && !seller.getNid().isEmpty() &&
-					seller.getPassword() != null && !seller.getPassword().isEmpty() && seller.getPhoneNumber() != null && !seller.getPhoneNumber().isEmpty() &&
-					seller.getSellerType() != null && !seller.getSellerType().isEmpty()) {
-				
-				int passwordLength = seller.getPassword().length();
-				
-				if(passwordLength<8){
-					msg = "Password must be 8 characters or more";
-					return "redirect:/sellerRegistration";
-				}
-				
-				else {
-					sellerRepo.save(seller);
-					return "redirect:/home";
-				}
-				
+			if(bindingResult.hasErrors()) {	
+				return "sellerRegistration.html";
 			}
 			
 			else {
-				msg = "Please give all information correctly";
-				return "redirect:/sellerRegistration";
+				sellerRepo.save(seller);
+				return "redirect:/home";
 			}
 				
 		}
 		catch (Exception e) {
 			msg = "Phone Number or NID or Email used before. Check again and give new one.";
 			return "redirect:/sellerRegistration";
-		}
+		} 
+		
+		
 	}
 	
 	@RequestMapping("/sellerRegistration")
-	private String sellerRegistration() {
+	private String sellerRegistration(Seller seller) {
 		msg = "";
 		return "sellerRegistration.html";
 	}

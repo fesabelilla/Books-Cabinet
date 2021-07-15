@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import com.sun.istack.NotNull;
 
@@ -19,24 +21,34 @@ public class Seller {
 	@Column(name = "sellerId")
 	private int sId;
 	
-	@NotBlank(message = "Name cannot be blank")
+	@NotEmpty(message =  "Must not be empty")
+	@Size(min = 5, message = "The Full Name should have at least 5 characters")
 	private String fullName;
 	
+	@NotEmpty(message =  "Must not be empty")
 	@Column(unique=true)
+	@Size(min = 11, max = 11, message = "Phone number should be 11 digits")
 	private String phoneNumber;
 	
+	@NotEmpty(message =  "Must not be empty")
 	private String address;
+	@NotEmpty(message =  "Must not be empty")
 	private String birthday;
+	@NotEmpty(message =  "Must not be empty")
 	private String sellerType;
+	@NotEmpty(message =  "Must not be empty")
 	private String gender;
 	
+	@NotEmpty(message =  "Must not be empty")
 	@Column(unique=true)
 	private String nid;
 	
+	@NotEmpty(message =  "Must not be empty")
 	@Column(unique=true)
-	@Email(message = "Email should be valid")
 	private String email;
 	
+	@NotEmpty(message =  "Must not be empty")
+	@Size(min = 8, message = "The Full Name should have at least 8 characters")
 	private String password;
 	
 	
