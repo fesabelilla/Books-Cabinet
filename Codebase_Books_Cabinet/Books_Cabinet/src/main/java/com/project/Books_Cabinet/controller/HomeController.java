@@ -1,8 +1,11 @@
 package com.project.Books_Cabinet.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +21,7 @@ public class HomeController {
 	@Autowired
 	SellerRepo sellerRepo;
 	
-	String msg="Hello";
+	String msg="";
 	@ModelAttribute
 	public void welcome(Model m) {
 		m.addAttribute("msg",msg);
@@ -27,13 +30,14 @@ public class HomeController {
 	@RequestMapping("/home")
 	private String homepage() {
 
-		return "Done.html";
+		return "homepage.html";
 	}
 
 	@PostMapping("/sellerForm")
-	private String contactForm(@ModelAttribute Seller seller) {
+	private String contactForm( @ModelAttribute Seller seller) {
 	
 		//System.out.println();
+		
 		
 		try {
 			if(seller.getEmail() != null && !seller.getEmail().isEmpty() && seller.getAddress() != null && !seller.getAddress().isEmpty() && 
