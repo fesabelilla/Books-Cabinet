@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<!-- Nav-bar start -->
+
+<nav th:fragment="htmlNavbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+	<div class="container">
+
+		<a href="#" class="navbar-brand"> Books Cabinet </a>
+
+		<button class="navbar-toggler" data-toggle="collapse" data-target = "#navbarcollapseCMS">
+
+			<span class="navbar-toggler-icon"></span>
+
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarcollapseCMS">
+
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a href="myProfile.php" class="nav-link"> <i class="fas fa-user text-success"></i> My Profile</a>
+			</li>
+
+			<li class="nav-item">
+				<a href="dashboard.php" class="nav-link">Dashboard</a>
+			</li>
+
+			<li class="nav-item">
+				<a href="categories.php" class="nav-link">Categories</a>
+			</li>
+
+			<li class="nav-item">
+				<a href="manageAdmin.php" class="nav-link">Manage Admins</a>
+			</li>
+
+			<li class="nav-item">
+				<a href="comments.php" class="nav-link">Comments</a>
+			</li>
+			
+			<li class="nav-item">
+				<a href="sellerRegistration" class="nav-link">Login/Registration</a>
+			</li>
+			
+			
+		</ul>
+
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item"><a href="logout.php" class="nav-link text-danger"><i class="fas fa-sign-out-alt"></i> Logout</a></li>			
+		</ul>
+
+		</div>
+
+	</div>
+
+</nav>
+
+</body>
+</html>
