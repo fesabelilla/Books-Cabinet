@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.project.Books_Cabinet.model.Login;
 import com.project.Books_Cabinet.model.Seller;
+import com.project.Books_Cabinet.repository.LoginRepo;
 import com.project.Books_Cabinet.repository.SellerRepo;
 
 
@@ -20,6 +22,8 @@ public class HomeController {
 
 	@Autowired
 	SellerRepo sellerRepo;
+	@Autowired
+	LoginRepo loginRepo;
 	
 	String msg="";
 
@@ -35,18 +39,22 @@ public class HomeController {
 	}
 
 	@PostMapping("/sellerForm")
-	private String contactForm( @Valid @ModelAttribute Seller seller, BindingResult bindingResult ) {
+	private String contactForm( @Valid @ModelAttribute Seller seller, BindingResult bindingResult, @ModelAttribute Login login ) {
 	
-		//System.out.println();
-		
-		
 		try {
 			
 			if(bindingResult.hasErrors()) {	
 				return "sellerRegistration.html";
 			}
 			else {
+				login.setEmail(seller.getEmail());
+				login.setPassword(seller.getPassword());
+				login.setType(seller.getSellerType());
+				//System.out.println(seller.getEmail()+" "+seller.getPassword()+" "+seller.getSellerType());
+				
+				loginRepo.save(login);
 				sellerRepo.save(seller);
+				
 				return "redirect:/home";
 			}
 				
@@ -63,6 +71,11 @@ public class HomeController {
 	private String sellerRegistration(Seller seller) {
 		msg = "";
 		return "sellerRegistration.html";
+	}
+	
+	@PostMapping("/login")
+	private String logIn(){
+		return "login.html";
 	}
 	
 	
