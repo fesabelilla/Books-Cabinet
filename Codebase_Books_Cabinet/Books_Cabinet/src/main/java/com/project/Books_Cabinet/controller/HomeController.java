@@ -38,11 +38,15 @@ public class HomeController {
 	private String contactForm( @Valid @ModelAttribute Seller seller, BindingResult bindingResult ) {
 	
 		//System.out.println();
-		
+		if(bindingResult.hasErrors()) {	
+			return "sellerRegistration.html";
+		}
 		
 		try {
-			if(bindingResult.hasErrors()) {	
-				return "sellerRegistration.html";
+			
+			if(seller.getGender() =="" || seller.getSellerType()=="") {
+				msg = "Select seller type and Gender";
+				return "redirect:/sellerRegistration";
 			}
 			
 			else {

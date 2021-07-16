@@ -34,9 +34,9 @@ public class Seller {
 	private String address;
 	@NotEmpty(message =  "Must not be empty")
 	private String birthday;
-	@NotEmpty(message =  "Must not be empty")
+	@NotEmpty(message =  "Select seller type")
 	private String sellerType;
-	@NotEmpty(message =  "Must not be empty")
+	@NotEmpty(message =  "Select gender")
 	private String gender;
 	
 	@NotEmpty(message =  "Must not be empty")
