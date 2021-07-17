@@ -9,6 +9,8 @@
 
 <body>
 
+	<div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
+	
 	<div style="height: 10px; background:#27aae1;"></div>
 	
 	<!-- Nav-bar start -->

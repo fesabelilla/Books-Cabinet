@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.Books_Cabinet.model.Login;
 import com.project.Books_Cabinet.model.Seller;
@@ -39,7 +40,7 @@ public class HomeController {
 	}
 
 	@PostMapping("/sellerForm")
-	private String contactForm( @Valid @ModelAttribute Seller seller, BindingResult bindingResult, @ModelAttribute Login login ) {
+	private String contactForm( @Valid @ModelAttribute Seller seller, BindingResult bindingResult, @ModelAttribute Login login,RedirectAttributes redirectAttributes ) {
 	
 		try {
 			
@@ -52,8 +53,12 @@ public class HomeController {
 				login.setType(seller.getSellerType());
 				//System.out.println(seller.getEmail()+" "+seller.getPassword()+" "+seller.getSellerType());
 				
+				
 				loginRepo.save(login);
 				sellerRepo.save(seller);
+				
+				redirectAttributes.addFlashAttribute("message", "Account created!");
+			    redirectAttributes.addFlashAttribute("alertClass", "alert-success");
 				
 				return "redirect:/home";
 			}
