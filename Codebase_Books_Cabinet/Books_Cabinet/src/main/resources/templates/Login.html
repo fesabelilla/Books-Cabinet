@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: html_head" />
 <body>
 	<h1 class="h1 d-none">Login to Access All the Feature</h1>
@@ -13,6 +13,10 @@
 					<i class="flaticon-user mr-3 font-size-5"></i>Account
 				</h2>
 			</header>
+			
+			<div class="text-danger" th:if="${wrongInfo}">
+			<span th:text="${wrongInfo}"></span>
+			</div>
 
 			<div class="p-4 p-md-6">
 

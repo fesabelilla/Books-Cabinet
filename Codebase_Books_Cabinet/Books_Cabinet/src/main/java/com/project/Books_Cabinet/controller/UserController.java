@@ -25,6 +25,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -38,33 +39,6 @@ public class UserController {
 	@Autowired
 	LoginRepo lr;
 
-	public static String getMd5(String input) {
-		try {
-
-			// Static getInstance method is called with hashing MD5
-			MessageDigest md = MessageDigest.getInstance("MD5");
-
-			// digest() method is called to calculate message digest
-			// of an input digest() return array of byte
-			byte[] messageDigest = md.digest(input.getBytes());
-
-			// Convert byte array into signum representation
-			BigInteger no = new BigInteger(1, messageDigest);
-
-			// Convert message digest into hex value
-			String hashtext = no.toString(16);
-			while (hashtext.length() < 32) {
-				hashtext = "0" + hashtext;
-			}
-			return hashtext;
-		}
-
-		// For specifying wrong message digest algorithms
-		catch (NoSuchAlgorithmException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
 	@GetMapping("/user/signup")
 	public String UserRegistration(Users users, Login login) {
 		return "UserRegistration.html";
@@ -74,16 +48,22 @@ public class UserController {
 	public String UserRegistration(@Valid @ModelAttribute Users users, BindingResult bindingResult1,
 			@Valid @ModelAttribute Login login, BindingResult bindingResult2) {
 
-		if (bindingResult1.hasErrors() || bindingResult1.hasErrors()) {
+		List<Login> loginUsers = lr.findByemail(login.getEmail());
+		if(!loginUsers.isEmpty()) {
+			bindingResult2.rejectValue("email", "error.login", "Email is already used");
 			return "UserRegistration.html";
 		}
+		//System.out.println(bindingResult1);
+		if (bindingResult1.hasErrors() || bindingResult2.hasErrors()) {
+			
+			return "UserRegistration.html";
+		}
+		
+		
 
-		String passwordEncry = getMd5(login.getPassword());
+		String passwordEncry =  LoginLogic.getMd5(login.getPassword());
 		login.setPassword(passwordEncry);
 		users.setPassword(passwordEncry);
-
-		System.out.println(getMd5(login.getPassword()));
-		System.out.println(getMd5(login.getPassword()));
 
 		System.out.println(lr.save(login));
 
@@ -105,7 +85,8 @@ public class UserController {
 		if (users.size() == 0) {
 			System.out.println("no user");
 			// return "No user";
-			return "redirect:/user/login";
+			model.addAttribute("wrongInfo", "Wrong Email or Password");
+			return "Login.html";
 		} else {
 			modelmap.put("UserSessId", users.iterator().next().getUserId());
 			System.out.println(users.iterator().next().getEmail());
@@ -121,6 +102,9 @@ public class UserController {
 
 	@GetMapping("/user/profile")
 	public String Profile(ModelMap mm, Model model) {
+		if(mm.getAttribute("UserSessId") == null) {
+			return "redirect:/user/login";
+		}
 		int userId = (int) mm.getAttribute("UserSessId");
 		Users user = ur.getById(userId);
 		model.addAttribute("user", user);
