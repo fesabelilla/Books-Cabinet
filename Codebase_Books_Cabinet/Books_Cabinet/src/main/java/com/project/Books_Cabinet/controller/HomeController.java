@@ -18,6 +18,7 @@ public class HomeController {
 	
 	@Autowired
 	UserRepo ur;
+	
 
 	@RequestMapping("/home")
 	private String homepage(ModelMap mm, Model model) {
@@ -31,10 +32,15 @@ public class HomeController {
 		}else {
 			
 		}
-		
-		
 
-		return "/books/books_home.html";
+		//return "/books/books_home.html";	
+		return "homepage.html";	
+	}
+	
+	@RequestMapping("/signup")
+	private String signup() {
+		
+		return "signup.html";	
 	}
 
 	@PostMapping("/contactForm")

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Sign Up</title>
+<link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+<body>
+
+<nav th:replace="homepage :: home_nav_bar"></nav>
+
+	<div class="container h-100 d-flex justify-content-center">
+		<div class="jumbotron my-auto">
+			<h3>Sign Up as a/an</h3>
+			<a href="/user/signup" class="btn btn-primary btn">User (Sell My Used Books or Buy)</a> <a
+				type="button" class="btn btn-secondary btn">Pro Book Seller (I have a book shop)</a> <a
+				type="button" class="btn btn-info btn">Publisher (I have a Publication)</a>
+				
+				<br> <br>
+				<p><a href="/home" class="btn btn-danger btn-sm">Cancel</a></p>				
+				<p><a href="/user/login" class="btn btn-success btn-sm">Login to Access</a></p>
+				
+		</div>
+		
+	</div>
+</body>
+</html>

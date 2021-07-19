@@ -41,7 +41,7 @@ public class UserController {
 
 	@GetMapping("/user/signup")
 	public String UserRegistration(Users users, Login login) {
-		return "UserRegistration.html";
+		return "/user/UserRegistration.html";
 	}
 
 	@PostMapping("/user/signup")
@@ -51,12 +51,12 @@ public class UserController {
 		List<Login> loginUsers = lr.findByemail(login.getEmail());
 		if(!loginUsers.isEmpty()) {
 			bindingResult2.rejectValue("email", "error.login", "Email is already used");
-			return "UserRegistration.html";
+			return "/user/UserRegistration.html";
 		}
 		//System.out.println(bindingResult1);
 		if (bindingResult1.hasErrors() || bindingResult2.hasErrors()) {
 			
-			return "UserRegistration.html";
+			return "/user/UserRegistration.html";
 		}
 		
 		
@@ -89,12 +89,15 @@ public class UserController {
 			return "Login.html";
 		} else {
 			modelmap.put("UserSessId", users.iterator().next().getUserId());
-			System.out.println(users.iterator().next().getEmail());
+			System.out.println(users.iterator().next().getUserType());
+		}
+		if (users.iterator().next().getUserType().equals("g_user")) {
+			return "redirect:/user/profile";
 		}
 		return "redirect:/home";
 	}
 
-	@GetMapping("/user/logout")
+	@GetMapping("/logout")
 	public String Logout(SessionStatus status) {
 		status.setComplete();
 		return "redirect:/user/login";
