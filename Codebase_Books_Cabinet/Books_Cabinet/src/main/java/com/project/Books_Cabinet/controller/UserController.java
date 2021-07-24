@@ -58,8 +58,6 @@ public class UserController {
 			
 			return "/user/UserRegistration.html";
 		}
-		
-		
 
 		String passwordEncry =  LoginLogic.getMd5(login.getPassword());
 		login.setPassword(passwordEncry);
