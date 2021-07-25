@@ -8,8 +8,10 @@
 </head>
 <body>
 
-	<div class="card-group">
-		<div class="card" style="width: 18rem;" th:each="book: ${allBooks}">
+<nav th:replace="homepage :: home_nav_bar"></nav>
+
+	<div class="card-group" id="all-books">
+		<div class="card" th:fragment="all_books" style="width: 18rem;" th:each="book: ${allBooks}">
 			<img th:if="${book.bookSampleImage1}" class="" width="150" height="200" th:src="'/images/' + ${book.bookSampleImage1}" alt="Card image cap">
 			<img th:unless="${book.bookSampleImage1}" class="" width="150" height="200" src="/images/blank-book-cover.png" alt="Card image cap">
 			<div class="card-body">

@@ -41,12 +41,15 @@
 
 			<div class="collapse navbar-collapse" id="navbarcollapseCMS">
 
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item"><a href="#" class="nav-link"> <i
-							class="fas fa-user text-success"></i> My Profile
-					</a></li>
 
-					<li class="nav-item"><a href="contact.html" class="nav-link">Dashboard</a>
+
+				<ul class="navbar-nav mr-auto" th:if="${UserSessId}">
+				
+				<li class="nav-item"><a href="/book/advertise/add" class="nav-link">Sell A Book</a></li>
+				
+					
+
+					<li class="nav-item"><a href="/book/all" class="nav-link">All Books</a>
 					</li>
 
 					<li class="nav-item"><a href="#" class="nav-link">Categories</a>
@@ -58,17 +61,27 @@
 					<li class="nav-item"><a href="#" class="nav-link">Comments</a>
 					</li>
 
-					<li class="nav-item"><a href="#" class="nav-link">Live
-							Blog</a></li>
+					<li class="nav-item"><a href="/user/profile" class="nav-link"> <i
+							class="fas fa-user text-success"></i> My Profile
+					</a></li>
 
-					<li class="nav-item"><a href="/signup" class="nav-link">Sign
-							Up</a></li>
+					<li class="nav-item"><a href="/logout"
+						class="nav-link text-danger"><i class="fas fa-sign-out-alt"></i>
+							Logout</a></li>
 
 				</ul>
 
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a href="#" class="nav-link text-danger"><i
-							class="fas fa-sign-out-alt"></i> Logout</a></li>
+
+				<ul class="navbar-nav mr-auto" th:unless="${UserSessId}">
+				
+				<li class="nav-item"><a href="/book/all" class="nav-link">All Books</a>
+					</li>
+				
+					<li class="nav-item"><a href="/signup" class="nav-link">Sign
+							Up</a></li>
+
+					<li class="nav-item"><a href="/user/login" class="nav-link">Sign
+							In</a></li>
 				</ul>
 
 			</div>
@@ -79,6 +92,10 @@
 	<div style="height: 10px; background: #27aae1;"></div>
 
 	<!-- Nav-bar end-->
+
+
+
+
 
 	<!--HEADER -->
 	<header class="bg-dark text-white py-3">
@@ -96,6 +113,9 @@
 
 	<br>
 	<!-- -->
+
+
+	<a class="btn btn-link" href="/book/all">All Books</a>
 
 	<!-- FOOTER -->
 	<footer class="bg-dark text-white">

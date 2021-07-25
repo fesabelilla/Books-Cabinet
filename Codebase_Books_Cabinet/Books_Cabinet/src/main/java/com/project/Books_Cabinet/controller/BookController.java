@@ -28,6 +28,10 @@ public class BookController {
 	@GetMapping("/book/advertise/add")
 	private String AddBookForAdvertising(Model model) {
 		
+		if (model.getAttribute("UserSessId") == null) {
+			return "redirect:/404";
+		}
+		
 		List<Category> allCategories = categoryRepo.findAll();
 		
 		model.addAttribute("allCategories", allCategories);
@@ -38,6 +42,10 @@ public class BookController {
 	
 	@PostMapping("/book/advertise/add")
 	private String StoreBookInforamtion(@ModelAttribute Book book, Model model) {
+		
+		if (model.getAttribute("UserSessId") == null) {
+			return "redirect:/404";
+		}
 		
 		bookRepo.save(book);
 		System.out.println(book);
