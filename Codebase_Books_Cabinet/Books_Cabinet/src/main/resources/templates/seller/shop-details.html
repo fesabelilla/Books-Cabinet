@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="${shop.shopName + '-Details'}">Insert title here</title>
+<link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+<body>
+
+<h2>Shop Details</h2>
+
+<h4>Shop Name: <span th:text=${shop.shopName}></span></h4>
+<h5>Shop Owner: <span th:text=${shop.owner}></span></h5>
+<h5>Contact No: <span th:text=${shop.phoneNumber}></span></h5>
+
+</body>
+</html>
