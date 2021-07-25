@@ -18,9 +18,10 @@
 		<div class="row">
 			<div class="panel panel-primary">
 				<div class="panel-body">
-					<form method="POST" action="sellerForm" role="form" th:object="${seller}">
+					<form method="POST" action="loginForm" role="form" th:object="${login}">
 						<div class="form-group">
 							<h2>Login</h2>
+							<h4 style="color:red;" th:text="${msg}"></h4>
 							
 						</div>
 												

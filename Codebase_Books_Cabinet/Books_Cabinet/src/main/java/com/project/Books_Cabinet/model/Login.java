@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 
 @Entity
@@ -15,8 +16,12 @@ public class Login {
 	@Column(name = "loginId")
 	private int loginId;
 
+	@NotEmpty(message =  "Must not be empty")
 	private String email;
+	
+	@NotEmpty(message =  "Must not be empty")
 	private String password;
+	
 	private String type;
 	
 	public Login() {
