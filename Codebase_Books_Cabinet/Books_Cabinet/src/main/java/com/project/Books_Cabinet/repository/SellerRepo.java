@@ -15,9 +15,5 @@ public interface SellerRepo extends JpaRepository<Seller, Integer>{
 	Collection<Seller> ValidUser(String email, String password);
 
 	Collection<Seller> findBysId(int parseInt);
-	
-	
 
-	
-	
 }

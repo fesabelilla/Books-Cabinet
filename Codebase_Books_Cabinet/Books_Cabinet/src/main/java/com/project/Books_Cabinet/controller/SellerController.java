@@ -44,7 +44,7 @@ public class SellerController {
 	
 	
 	@PostMapping("/sellerForm")
-	private String contactForm( @Valid @ModelAttribute Seller seller, BindingResult bindingResult, @ModelAttribute Login login,RedirectAttributes redirectAttributes ) {
+	private String contactForm(@Valid @ModelAttribute Seller seller, BindingResult bindingResult, @ModelAttribute Login login,RedirectAttributes redirectAttributes ) {
 	
 		try {
 			
@@ -139,31 +139,6 @@ public class SellerController {
 		
 		return "redirect:/sellerProfile";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 
