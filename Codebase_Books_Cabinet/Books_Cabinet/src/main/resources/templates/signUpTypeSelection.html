@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: htmlHead">
+
+</head>
+
+<style>
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button1 {background-color: #4CAF50;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+
+</style>
+
+<body>
+
+	<!-- Nav-bar start -->
+	
+	<nav  th:replace="fragments :: htmlNavbar"></nav>
+	
+	<div style="height: 10px; background:#27aae1;"></div>
+
+	<!-- Nav-bar end-->
+	
+	
+	<div class="container">
+	  <div class="row">
+	    <div class="col text-center pt-4 m-5 pb-5 bg-secondary text-white" >
+	      <form action="userForm" role="form"> 
+			<button class="button button1"> User Registration </button>
+		</form>
+		<form action="sellerRegistration" role="form"> 
+			<button class="button button2" > Seller Registration</button>
+		</form>
+	    </div>
+	  </div>
+	</div>
+	
+	
+	<!-- FOOTER -->
+	<footer th:replace="fragments :: htmlFooter"></footer>
+	<div style="height: 10px; background:#27aae1;"></div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+	<!-- for date -->
+
+	<script >
+		$('#year').text(new Date().getFullYear());
+	</script>
+	
+	
+</body>
+</html>

@@ -33,6 +33,7 @@ public class HomeController {
 
 	@Autowired
 	SellerRepo sellerRepo;
+	
 	@Autowired
 	LoginRepo loginRepo;
 	
@@ -49,44 +50,6 @@ public class HomeController {
 		return "homepage.html";
 	}
 
-	@PostMapping("/sellerForm")
-	private String contactForm( @Valid @ModelAttribute Seller seller, BindingResult bindingResult, @ModelAttribute Login login,RedirectAttributes redirectAttributes ) {
-	
-		try {
-			
-			if(bindingResult.hasErrors()) {	
-				return "sellerRegistration.html";
-			}
-			else {
-				login.setEmail(seller.getEmail());
-				login.setPassword(seller.getPassword());
-				login.setType(seller.getSellerType());
-				//System.out.println(seller.getEmail()+" "+seller.getPassword()+" "+seller.getSellerType());
-				
-				
-				loginRepo.save(login);
-				sellerRepo.save(seller);
-				
-				redirectAttributes.addFlashAttribute("message", "Account created!");
-			    redirectAttributes.addFlashAttribute("alertClass", "alert-success");
-				
-				return "redirect:/home";
-			}
-				
-		}
-		catch (Exception e) {
-			msg = "Phone Number or NID or Email used before. Check again and give new one.";
-			return "redirect:/sellerRegistration";
-		} 
-		
-		
-	}
-	
-	@RequestMapping("/sellerRegistration")
-	private String sellerRegistration(Seller seller) {
-		msg = "";
-		return "sellerRegistration.html";
-	}
 	
 	@PostMapping("/loginForm")
 	private String logIn(@Valid @ModelAttribute Login login,Seller seller,BindingResult bindingResult,HttpServletRequest request
@@ -119,7 +82,7 @@ public class HomeController {
 					sessionID = userID;
 					request.getSession().setAttribute("SessionId", sessionID);					
 					
-					model.addAttribute("sellerName", sessionID);
+					model.addAttribute("sellerName", user.iterator().next().getFullName());
 					
 					redirectAttributes.addFlashAttribute("message", "Login Successfully!");
 				    redirectAttributes.addFlashAttribute("alertClass", "alert-success");
@@ -136,7 +99,7 @@ public class HomeController {
 	
 	
 	@RequestMapping("/destroy")
-	public String destroySession(HttpServletRequest request,SessionStatus status) {
+	private String destroySession(HttpServletRequest request,SessionStatus status) {
 		status.setComplete();
 		request.getSession().invalidate();
 		return "redirect:/home";
@@ -147,6 +110,10 @@ public class HomeController {
 			return "login.html";
 	}
 	
+	@RequestMapping("/registration")
+	private String registration() {
+		return "signUpTypeSelection.html";
+	}
 	
 	
 	

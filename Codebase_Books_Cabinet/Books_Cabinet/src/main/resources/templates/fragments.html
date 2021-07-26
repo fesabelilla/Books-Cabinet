@@ -31,28 +31,28 @@
 			<div class="collapse navbar-collapse" id="navbarcollapseCMS">
 	
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item">
-					<a href="myProfile" class="nav-link"> <i class="fas fa-user text-success"></i> My Profile</a>
+				<li class="nav-item" th:if="${SessionId}">
+					<a href="sellerProfile" class="nav-link"> <i class="fas fa-user text-success"></i> My Profile</a>
 				</li>
 	
 				<li class="nav-item">
-					<a href="dashboard.php" class="nav-link">Dashboard</a>
+					<a href="allBooks" class="nav-link">Books</a>
 				</li>
 	
 				<li class="nav-item">
-					<a href="categories.php" class="nav-link">Categories</a>
+					<a href="categories" class="nav-link">Categories</a>
 				</li>
 	
 				<li class="nav-item">
-					<a href="manageAdmin.php" class="nav-link">Manage Admins</a>
+					<a href="manageAdmin" class="nav-link">Manage Admins</a>
 				</li>
 	
 				<li class="nav-item">
-					<a href="comments.php" class="nav-link">Comments</a>
+					<a href="comments" class="nav-link">Comments</a>
 				</li>
 				
 				<li th:unless="${SessionId}" class="nav-item">
-					<a href="sellerRegistration" class="nav-link">Signup/Registration</a>
+					<a href="registration" class="nav-link">Registration</a>
 				</li>
 				
 				
@@ -69,20 +69,7 @@
 					<i class="glph-icon flaticon-question mr-2"></i>Login
 					</a>
 				</li>
-				
-			
-			<!-- <li class="nav-item">
-					<a href="logout.php" class="nav-link text-danger"><i class="fas fa-sign-out-alt"></i> Logout</a>
-					
-					<form class="nav-link text-danger" th:action="@{/destroy}" method="post">
-						<input type="submit" value="Logout" />
-					</form>
-					
-					
-				</li>	
-				
-			-->
-					
+						
 			</ul>
 	
 			</div>

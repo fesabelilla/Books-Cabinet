@@ -51,6 +51,9 @@ public class Seller {
 	@Size(min = 8, message = "The Full Name should have at least 8 characters")
 	private String password;
 	
+	@NotEmpty(message =  "Must not be empty")
+	private String shopOrPublicationName;
+	
 	
 	public Seller() {
 		super();
@@ -58,7 +61,7 @@ public class Seller {
 
 
 	public Seller(int sId, String fullName, String phoneNumber, String address, String birthday, String sellerType,
-			String gender, String nid, String email, String password) {
+			String gender, String nid, String email, String password, String shopOrPublicationName) {
 		super();
 		this.sId = sId;
 		this.fullName = fullName;
@@ -70,6 +73,7 @@ public class Seller {
 		this.nid = nid;
 		this.email = email;
 		this.password = password;
+		this.shopOrPublicationName = shopOrPublicationName;
 	}
 
 
@@ -171,6 +175,17 @@ public class Seller {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
+	public String getShopOrPublicationName() {
+		return shopOrPublicationName;
+	}
+
+
+	public void setShopOrPublicationName(String shopOrPublicationName) {
+		this.shopOrPublicationName = shopOrPublicationName;
+	}
+	
 	
 
 }

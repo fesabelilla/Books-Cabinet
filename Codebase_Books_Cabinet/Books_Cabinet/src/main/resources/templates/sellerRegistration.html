@@ -20,11 +20,11 @@
 				<div class="panel-body">
 					<form method="POST" action="sellerForm" role="form" th:object="${seller}">
 						<div class="form-group">
-							<h2>Create Account</h2>
+							<h2>Create Seller Account</h2>
 							<h4 style="color:red;" th:text="${msg}"></h4>
 						</div>
 						<div class="form-group">
-							<label class="control-label" for="signupName">Your Full Name</label>
+							<label class="control-label" for="signupName">Seller Name</label>
 							<input id="signupName" type="text" maxlength="50" class="form-control" name="fullName"></input>
 							<style>
 							  .control-label:after {
@@ -39,11 +39,19 @@
 							<input id="signupName" type="text" maxlength="50" class="form-control" name="phoneNumber"></input>
 							<span style="color:red;" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"> </span>
 						</div>
+						
 						<div class="form-group">
 							<label class="control-label" for="signupName">Address</label>
 							<input id="signupName" type="text" maxlength="50" class="form-control" name="address"></input>
 							<span style="color:red;" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"> </span>
 						</div>
+				
+						<div class="form-group">
+							<label class="control-label" for="signupName">Shop Name / Publication Name</label>
+							<input id="signupName" type="text" maxlength="50" class="form-control" name="shopOrPublicationName"></input>
+							<span style="color:red;" th:if="${#fields.hasErrors('shopOrPublicationName')}" th:errors="*{shopOrPublicationName}"> </span>
+						</div>
+						
 						<div class="form-group">
 							<label class="control-label" for="signupName">Date of Birth</label>
 							 <input type="date" id="birthday" name="birthday"></input>
