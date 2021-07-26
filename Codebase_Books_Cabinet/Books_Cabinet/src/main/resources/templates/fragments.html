@@ -32,7 +32,7 @@
 	
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">
-					<a href="myProfile.php" class="nav-link"> <i class="fas fa-user text-success"></i> My Profile</a>
+					<a href="myProfile" class="nav-link"> <i class="fas fa-user text-success"></i> My Profile</a>
 				</li>
 	
 				<li class="nav-item">
@@ -51,8 +51,8 @@
 					<a href="comments.php" class="nav-link">Comments</a>
 				</li>
 				
-				<li class="nav-item">
-					<a href="sellerRegistration" class="nav-link">Login/Registration</a>
+				<li th:unless="${SessionId}" class="nav-item">
+					<a href="sellerRegistration" class="nav-link">Signup/Registration</a>
 				</li>
 				
 				
@@ -60,13 +60,31 @@
 			
 			<ul class="navbar-nav ml-auto">
 			
-				<li class="nav-item">
-				<!--	<a href="logout.php" class="nav-link text-danger"><i class="fas fa-sign-out-alt"></i> Logout</a> -->
+				<li th:if="${SessionId}" class="nav-item">
+					<form class="nav-link text-danger" th:action="@{/destroy}" method="post">
+					   <input type="submit" value="Logout" />
+					</form>
+				</li>
+
+				<li th:unless="${SessionId}" class="nav-item">
+					<a href="login" class="nav-link link-black-100"> 
+					<i class="glph-icon flaticon-question mr-2"></i>Login
+					</a>
+				</li>
+				
+			
+			<!-- <li class="nav-item">
+					<a href="logout.php" class="nav-link text-danger"><i class="fas fa-sign-out-alt"></i> Logout</a>
 					
 					<form class="nav-link text-danger" th:action="@{/destroy}" method="post">
 						<input type="submit" value="Logout" />
 					</form>
-				</li>			
+					
+					
+				</li>	
+				
+			-->
+					
 			</ul>
 	
 			</div>
