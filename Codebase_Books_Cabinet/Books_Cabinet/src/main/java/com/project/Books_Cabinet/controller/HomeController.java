@@ -135,7 +135,7 @@ public class HomeController {
 	}
 	
 	
-	@PostMapping("/destroy")
+	@RequestMapping("/destroy")
 	public String destroySession(HttpServletRequest request,SessionStatus status) {
 		status.setComplete();
 		request.getSession().invalidate();

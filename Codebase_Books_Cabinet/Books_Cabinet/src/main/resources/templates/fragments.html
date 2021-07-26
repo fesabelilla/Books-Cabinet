@@ -61,9 +61,7 @@
 			<ul class="navbar-nav ml-auto">
 			
 				<li th:if="${SessionId}" class="nav-item">
-					<form class="nav-link text-danger" th:action="@{/destroy}" method="post">
-					   <input type="submit" value="Logout" />
-					</form>
+					<a href="destroy" class="nav-link text-danger"><i class="fas fa-sign-out-alt"></i> Logout</a>
 				</li>
 
 				<li th:unless="${SessionId}" class="nav-item">
