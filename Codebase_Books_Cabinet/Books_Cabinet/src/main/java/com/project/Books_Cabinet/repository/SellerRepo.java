@@ -11,8 +11,11 @@ import com.project.Books_Cabinet.model.Seller;
 @Repository
 public interface SellerRepo extends JpaRepository<Seller, Integer>{
 	
-	@Query("from Seller where email = ?1 , password = ?2")
+	@Query("from Seller where email = ?1 and password = ?2")
 	public Collection<Seller> ValidUser(String email, String password);
+	
+	
+
 	
 	
 }

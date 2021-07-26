@@ -86,16 +86,40 @@ public class HomeController {
 	}
 	
 	@PostMapping("/loginForm")
-	private String logIn(@Valid @ModelAttribute Login login, @ModelAttribute Seller seller,BindingResult bindingResult,HttpServletRequest request
-			, Model model){
+	private String logIn(@Valid @ModelAttribute Login login,Seller seller,BindingResult bindingResult,HttpServletRequest request
+			, Model model, RedirectAttributes redirectAttributes){
 		
 			if(bindingResult.hasErrors()) {	
 				return "login.html";
 			}
+			
+			
 			else {
 				Collection<Seller> user = sellerRepo.ValidUser(login.getEmail(), login.getPassword());
 				
-				return "login.html";
+				if (user.size() == 0) {
+					System.out.println("no user");
+					msg = "Wrong Email or Password";
+					return "redirect:/login";
+				}
+				else {
+					
+					String userID = Integer.toString( user.iterator().next().getsId());
+					@SuppressWarnings("unchecked")
+					String sessionID = (String) request.getSession().getAttribute(userID);
+		
+					request.getSession().setAttribute(userID,userID);
+					
+					
+					model.addAttribute("sellerName", user.iterator().next().getFullName());
+					
+					redirectAttributes.addFlashAttribute("message", "Login Successfully!");
+				    redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+					
+					System.out.println(user.iterator().next().getFullName());
+					return "redirect:/home";
+					
+				}
 				
 			}
 	
