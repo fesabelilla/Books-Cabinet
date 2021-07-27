@@ -55,7 +55,7 @@ public class BookController {
 	@GetMapping("/book/all")
 	public String GetAllBooks(Model model) {
 		 List<Book> allBooks = bookRepo.findAll();
-		 model.addAttribute("allBooks", allBooks);
+		model.addAttribute("allBooks", allBooks);
 		return "/books/all-books.html";
 	}
 	
