@@ -71,6 +71,7 @@ public class HomeController {
 					@SuppressWarnings("unchecked")
 					//List<String> sessionID = (List<String>) request.getSession().getAttribute("SessionId");
 					String userID = Integer.toString( user.iterator().next().getsId());
+					
 					String sessionID = (String) request.getSession().getAttribute("SessionId");
 					
 					if(sessionID == null) {

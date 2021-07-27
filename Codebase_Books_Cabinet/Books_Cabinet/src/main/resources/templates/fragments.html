@@ -36,7 +36,7 @@
 				</li>
 	
 				<li class="nav-item">
-					<a href="allBooks" class="nav-link">Books</a>
+					<a href="/book/all" class="nav-link">Books</a>
 				</li>
 	
 				<li class="nav-item">
@@ -47,11 +47,11 @@
 					<a href="manageAdmin" class="nav-link">Manage Admins</a>
 				</li>
 	
-				<li class="nav-item">
-					<a href="comments" class="nav-link">Comments</a>
+				<li class="nav-item" th:if="${SessionId}">
+					<a href="/book/advertise/add" class="nav-link">Add Book for Sell</a>
 				</li>
 				
-				<li th:unless="${SessionId}" class="nav-item">
+				<li class="nav-item" th:unless="${SessionId}">
 					<a href="registration" class="nav-link">Registration</a>
 				</li>
 				
@@ -60,7 +60,7 @@
 			
 			<ul class="navbar-nav ml-auto">
 			
-				<li th:if="${SessionId}" class="nav-item">
+				<li class="nav-item" th:if="${SessionId}">
 					<a href="destroy" class="nav-link text-danger"><i class="fas fa-sign-out-alt"></i> Logout</a>
 				</li>
 

@@ -16,7 +16,7 @@ import com.project.Books_Cabinet.repository.BookRepo;
 import com.project.Books_Cabinet.repository.CategoryRepo;
 
 @Controller
-@SessionAttributes("UserSessId")
+@SessionAttributes("SessionId")
 public class BookController {
 	
 	@Autowired
@@ -28,8 +28,8 @@ public class BookController {
 	@GetMapping("/book/advertise/add")
 	private String AddBookForAdvertising(Model model) {
 		
-		if (model.getAttribute("UserSessId") == null) {
-			return "redirect:/404";
+		if (model.getAttribute("SessionId") == null) {
+			return "pageNotFound.html";
 		}
 		
 		List<Category> allCategories = categoryRepo.findAll();
@@ -43,8 +43,8 @@ public class BookController {
 	@PostMapping("/book/advertise/add")
 	private String StoreBookInforamtion(@ModelAttribute Book book, Model model) {
 		
-		if (model.getAttribute("UserSessId") == null) {
-			return "redirect:/404";
+		if (model.getAttribute("SessionId") == null) {
+			return "pageNotFound.html";
 		}
 		
 		bookRepo.save(book);

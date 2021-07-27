@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
-<head>
-<link rel="stylesheet" href="/css/bootstrap.css" />
+<head th:replace="fragments :: htmlHead">
+
 </head>
 <body>
 
-	<!-- <nav th:replace="fragments :: nav_bar"></nav> -->
+	<div style="height: 10px; background:#27aae1;"></div>
 	
-	<nav th:replace="homepage :: home_nav_bar"></nav>
+	<!-- Nav-bar start -->
+	
+	<nav  th:replace="fragments :: htmlNavbar"></nav>
+	
+	<div style="height: 10px; background:#27aae1;"></div>
+
+	<!-- Nav-bar end-->
 
 <p class="display-4">Fill Up Your Book Details - For Selling</p>
 	<form method="post">
@@ -69,7 +75,7 @@
 					out </label>
 			</div>
 		</div>
-		<button type="submit" class="btn btn-primary">Sign in</button>
+		<button type="submit" class="btn btn-primary">Add Book</button>
 	</form>
 
 
