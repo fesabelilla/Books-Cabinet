@@ -46,7 +46,6 @@ public class HomeController {
 	
 	@RequestMapping("/home")
 	private String homepage() {
-
 		return "homepage.html";
 	}
 
@@ -58,7 +57,6 @@ public class HomeController {
 			if(bindingResult.hasErrors()) {	
 				return "login.html";
 			}
-			
 			
 			else {
 				Collection<Seller> user = sellerRepo.ValidUser(login.getEmail(), login.getPassword());

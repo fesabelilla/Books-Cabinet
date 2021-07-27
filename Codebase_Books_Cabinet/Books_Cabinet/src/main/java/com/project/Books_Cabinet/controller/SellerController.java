@@ -49,7 +49,7 @@ public class SellerController {
 		try {
 			
 			if(bindingResult.hasErrors()) {	
-				return "sellerRegistration.html";
+				return "/seller/sellerRegistration.html";
 			}
 			else {
 				login.setEmail(seller.getEmail());
@@ -79,45 +79,52 @@ public class SellerController {
 	@RequestMapping("/sellerRegistration")
 	private String sellerRegistration(Seller seller) {
 		msg = "";
-		return "sellerRegistration.html";
+		return "/seller/sellerRegistration.html";
 	}
 	
 	@RequestMapping("/sellerProfile")
 	private String viewSellerProfile(HttpServletRequest request, Model model) {
-
+		
+		msg = "";
 		String sessionID = (String) request.getSession().getAttribute("SessionId");
 		
-		Collection<Seller> user = sellerRepo.findBysId(Integer.parseInt(sessionID));
+		if(sessionID == null) {
+			return "pageNotFound.html";
+		}
 		
-		String fullName = user.iterator().next().getFullName();
-		String phoneNumber = user.iterator().next().getPhoneNumber();
-		String address = user.iterator().next().getAddress();
-		String birthday = user.iterator().next().getBirthday();
-		String sellerType = user.iterator().next().getSellerType();
-		String gender = user.iterator().next().getGender();
-		String nid = user.iterator().next().getNid();
-		String email = user.iterator().next().getEmail();
-		String password = user.iterator().next().getPassword();
-		String shopOrPublicationName = user.iterator().next().getShopOrPublicationName();
-		
-		
-		model.addAttribute("fullName",fullName);
-		model.addAttribute("phoneNumber",phoneNumber);
-		model.addAttribute("address",address);
-		model.addAttribute("birthday",birthday);
-		model.addAttribute("sellerType",sellerType);
-		model.addAttribute("gender",gender);
-		model.addAttribute("nid",nid);
-		model.addAttribute("email",email);
-		model.addAttribute("password",password);
-		model.addAttribute("shopOrPublicationName",shopOrPublicationName);
-		
+		else {
+			Collection<Seller> user = sellerRepo.findBysId(Integer.parseInt(sessionID));
 
-		System.out.println(sessionID);
-		System.out.println( user.iterator().next().getFullName()+" "+user.iterator().next().getAddress());
-		
-		
-		return "sellerProfile.html";
+			String fullName = user.iterator().next().getFullName();
+			String phoneNumber = user.iterator().next().getPhoneNumber();
+			String address = user.iterator().next().getAddress();
+			String birthday = user.iterator().next().getBirthday();
+			String sellerType = user.iterator().next().getSellerType();
+			String gender = user.iterator().next().getGender();
+			String nid = user.iterator().next().getNid();
+			String email = user.iterator().next().getEmail();
+			String password = user.iterator().next().getPassword();
+			String shopOrPublicationName = user.iterator().next().getShopOrPublicationName();
+
+
+			model.addAttribute("fullName",fullName);
+			model.addAttribute("phoneNumber",phoneNumber);
+			model.addAttribute("address",address);
+			model.addAttribute("birthday",birthday);
+			model.addAttribute("sellerType",sellerType);
+			model.addAttribute("gender",gender);
+			model.addAttribute("nid",nid);
+			model.addAttribute("email",email);
+			model.addAttribute("password",password);
+			model.addAttribute("shopOrPublicationName",shopOrPublicationName);
+
+
+			System.out.println(sessionID);
+			System.out.println( user.iterator().next().getFullName()+" "+user.iterator().next().getAddress());
+
+
+			return "/seller/sellerProfile.html";
+		}
 	}
 	
 	
@@ -126,18 +133,34 @@ public class SellerController {
 		
 		String sessionId = (String) request.getSession().getAttribute("SessionId");
 		
-		Seller updateSeller = sellerRepo.getOne(Integer.parseInt(sessionId));
+		try {
 		
-		updateSeller.setFullName(seller.getFullName());
-		updateSeller.setPhoneNumber(seller.getPhoneNumber());
-		updateSeller.setAddress(seller.getAddress());
+		if(sessionId == null) {
+			return "pageNotFound.html";
+		}
 		
-		sellerRepo.save(updateSeller);
+		else {
+			Seller updateSeller = sellerRepo.getOne(Integer.parseInt(sessionId));
+			
+			updateSeller.setFullName(seller.getFullName());
+			updateSeller.setPhoneNumber(seller.getPhoneNumber());
+			updateSeller.setAddress(seller.getAddress());
+			
+			sellerRepo.save(updateSeller);
+			
+			redirectAttributes.addFlashAttribute("message", "Updated Successfully!");
+		    redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+			
+			return "redirect:/sellerProfile";
+		}
 		
-		redirectAttributes.addFlashAttribute("message", "Updated Successfully!");
-	    redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+		}
+		catch (Exception e) {
+			msg = "This phone number used before. Please give new one";
+			
+			return "redirect:/sellerProfile";
+		}
 		
-		return "redirect:/sellerProfile";
 	}
 	
 	
