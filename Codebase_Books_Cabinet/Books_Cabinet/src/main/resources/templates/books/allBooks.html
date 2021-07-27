@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="/css/bootstrap.css" />
+<title>Books Home</title>
+</head>
+<body>
+
+<nav th:replace="homepage :: home_nav_bar"></nav>
+
+	<div class="card-group" id="all-books">
+		<div class="card" th:fragment="all_books" style="width: 18rem;" th:each="book: ${allBooks}">
+			<img th:if="${book.bookSampleImage1}" class="" width="150" height="200" th:src="'/images/' + ${book.bookSampleImage1}" alt="Card image cap">
+			<img th:unless="${book.bookSampleImage1}" class="" width="150" height="200" src="/images/blank-book-cover.png" alt="Card image cap">
+			<div class="card-body">
+				<h5 class="card-title" th:text=${book.bookName}>Card title</h5>
+				<p class="card-text" >Book Writer: <span th:text=${book.writer}></span></p>
+			</div>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item" th:text="'Published In: ' + ${book.publishingYear}">Cras justo odio</li>
+				<li class="list-group-item" th:text="'Price: ' + ${book.price} + ' Taka'">Dapibus ac facilisis in</li>
+				<li class="list-group-item" th:text="'Book Condition: ' + ${book.bookCondition}">Vestibulum at eros</li>
+				<li class="list-group-item" th:text="'Book Language: ' + ${book.language}"></li>
+			</ul>
+			<div class="card-body">
+				<a href="#" class="card-link">Buy Now</a> <a href="#"
+					class="card-link">Add to Cart</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
