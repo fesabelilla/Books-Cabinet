@@ -17,7 +17,7 @@
 	<!-- Nav-bar end-->
 
 <p class="display-4">Fill Up Your Book Details - For Selling</p>
-	<form method="post">
+	<form method="post" th:action="@{/book/advertise/add}" enctype="multipart/form-data">
 		<div class="form-row">
 			<div class="form-group col-md-6">
 				<label for="bookName">Book Name</label> <input type="text"
@@ -28,6 +28,12 @@
 					type="text" class="form-control" name="writer" id="writer"
 					placeholder="Enter Writer Name">
 			</div>
+		</div>
+		<div class="form-row" >
+			<div class="form-group col-md-6">
+			    <label>Photos: </label>
+			    <input type="file" name="image" accept="image/png, image/jpeg" />   
+    		</div>
 		</div>
 		<div class="form-row">
 			<div class="form-group col-md-4">
