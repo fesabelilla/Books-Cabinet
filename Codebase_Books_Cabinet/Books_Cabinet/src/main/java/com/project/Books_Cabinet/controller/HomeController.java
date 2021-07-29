@@ -20,8 +20,10 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.Books_Cabinet.model.Book;
 import com.project.Books_Cabinet.model.Login;
 import com.project.Books_Cabinet.model.Seller;
+import com.project.Books_Cabinet.repository.BookRepo;
 import com.project.Books_Cabinet.repository.LoginRepo;
 import com.project.Books_Cabinet.repository.SellerRepo;
 
@@ -37,6 +39,10 @@ public class HomeController {
 	@Autowired
 	LoginRepo loginRepo;
 	
+	@Autowired
+	BookRepo bookRepo;
+	
+	
 	String msg="";
 
 	@ModelAttribute
@@ -45,7 +51,11 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/home")
-	private String homepage() {
+	private String homepage( Model model) {
+		List<Book> allBooks = bookRepo.findAll();
+		 model.addAttribute("allBooks", allBooks);
+		
+		
 		return "homepage.html";
 	}
 

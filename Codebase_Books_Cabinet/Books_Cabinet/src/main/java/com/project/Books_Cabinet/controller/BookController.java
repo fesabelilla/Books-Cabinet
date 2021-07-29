@@ -68,7 +68,7 @@ public class BookController {
 	        bookRepo.save(book);
 	        
 	        
-	        String uploadDir = "./src/main/resources/static/image/";
+	        String uploadDir = "./src/main/resources/static/images/";
 	        
 	        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 	        

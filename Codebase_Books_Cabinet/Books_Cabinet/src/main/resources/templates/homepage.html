@@ -21,11 +21,59 @@
 
 	<!-- Nav-bar end-->
 
-	<!--HEADER -->
+	<!--HEADER
 	<header th:replace="fragments :: htmlHeader"></header>
+	 -->
+	 
+	<!-- show books -->
+	
+    <!--For Row containing all card-->
+    
+        <!--Card 1-->
+<div class="container" >
+​
+	<div class="row">
+		<div class="col-xl-3" th:each="book : ${allBooks}">
+			<div class="card" style="width: 15rem;">
+			<img class="card-img-top" width="160" height="180" th:src="'/images/' + ${book.photos}" alt="Card image cap">
+			
+				<div class="card-body">
+					<h5 class="card-title" style="color:blue" th:text=${book.bookName}><strong>Card title</strong></h5>
+					<p class="card-text" >Book Writer: <span th:text=${book.writer}></span></p>
+				
+					
+					<table>
+						<tr>
+							<td style="font-size:0.875em" >Published In : </td>
+							<td style="font-size:0.875em" th:text="' '+ ${book.publishingYear}"></td>
+						</tr>
+						<tr>
+							<td style="font-size:0.875em" >Price : </td>
+							<td style="font-size:0.875em" th:text="' '+${book.price} +' Taka'"></td>
+						</tr>
+						<tr>
+							<td style="font-size:0.875em" >Book Condition : </td>
+							<td style="font-size:0.875em" th:text="' '+${book.bookCondition}"></td>
+						</tr>
+						<tr>
+							<td style="font-size:0.875em" >Book Language : </td>
+							<td style="font-size:0.875em" th:text="' '+${book.language}"></td>
+						</tr>
+						<tr>
+							<td><a href="#" class="btn btn-primary">Buy Now</a></td>
+							<td> <a href="#" class="btn btn-primary">AddToCard</a> </td>
+						</tr>
+					</table>	
+				</div>
+			</div>
+		</div>
+	</div>
+       
+       
+ </div>
+	
 
-
-	<br>
+    <br>
 	
 	<!-- FOOTER -->
 	<footer th:replace="fragments :: htmlFooter"></footer>
