@@ -15,64 +15,84 @@
 	<div style="height: 10px; background:#27aae1;"></div>
 
 	<!-- Nav-bar end-->
+	<div th:if="${bookAddMessage}" th:text="${bookAddMessage}" th:class="${'alert ' + alertClass}"></div>
 
 <p class="display-4">Fill Up Your Book Details - For Selling</p>
-	<form method="post" th:action="@{/book/advertise/add}" enctype="multipart/form-data">
+	<form method="POST" action="addBookForm" role="form" th:object="${book}" enctype="multipart/form-data">
 		<div class="form-row">
 			<div class="form-group col-md-6">
-				<label for="bookName">Book Name</label> <input type="text"
-					class="form-control" name="bookName" id="bookName" placeholder="Enter Book Name">
+				<label for="bookName" class="control-label">Book Name</label> 
+				<input type="text" class="form-control" name="bookName" id="book" placeholder="Enter Book Name"></input>
+				<style>
+					.control-label:after {
+						content: " *";
+						color: red;
+					}
+					</style>
+				<span style="color:red;" th:if="${#fields.hasErrors('bookName')}" th:errors="*{bookName}"> </span>
 			</div>
 			<div class="form-group col-md-6">
-				<label for="writer">Writer Name</label> <input
+				<label for="writer" class="control-label">Writer Name</label> <input
 					type="text" class="form-control" name="writer" id="writer"
 					placeholder="Enter Writer Name">
+				<span style="color:red;" th:if="${#fields.hasErrors('writer')}" th:errors="*{writer}"> </span>
 			</div>
-		</div>
-		<div class="form-row" >
-			<div class="form-group col-md-6">
-			    <label>Photos: </label>
-			    <input type="file" name="image" accept="image/png, image/jpeg, image/jpg" />   
-    		</div>
 		</div>
 		<div class="form-row">
 			<div class="form-group col-md-4">
-				<label for="publishingYear">Publishing Year</label> <input
+				<label for="publishingYear" class="control-label">Publishing Year</label> <input
 					type="number" class="form-control" name="publishingYear" id="publishingYear"
 					placeholder="Write Publishing Year">
+				<p  style="color:red;" th:if="${#fields.hasErrors('publishingYear')}" th:class="${#fields.hasErrors('publishingYear')}? error">
+  Must not be empty</p>
 			</div>
 			<div class="form-group col-md-4">
-				<label for="price">Your Expected Price(Taka) </label> <input
+				<label for="price" class="control-label">Your Expected Price(Taka) </label> <input
 					type="number" class="form-control" id="price" name="price"
 					placeholder="Good Pricing help you to sell books quickly">
+					
+					<p  style="color:red;" th:if="${#fields.hasErrors('price')}" th:class="${#fields.hasErrors('price')}? error">
+  Must not be empty</p>
+					
+				
 			</div>
 
-			<div class="form-group col-md-4">
-				<label for="bookCondition">Your Book Condition</label> <select
+			<div class="form-group col-md-4" th:field="*{bookCondition}">
+				<label for="bookCondition" class="control-label">Your Book Condition</label> <select
 					class="form-control" id="bookCondition" name="bookCondition">
 					<option value="New">New</option>
 					<option selected="selected" value="Used">Used</option>
 				</select>
+				<span style="color:red;" th:if="${#fields.hasErrors('bookCondition')}" th:errors="*{bookCondition}"> </span>
 			</div>
 		</div>
 		<div class="form-row">
-			<div class="form-group col-md-6">
-				<label for="language">Book Language</label> <select
+			<div class="form-group col-md-6" th:field="*{language}">
+				<label for="language" class="control-label">Book Language</label> <select
 					class="form-control" name="language" id="language">
 					<option value="English">English</option>
 					<option value="Bengla">Bengali</option>
 					</select>
+					<span style="color:red;" th:if="${#fields.hasErrors('language')}" th:errors="*{language}"> </span>
 			</div>
 
-			<div class="form-group col-md-6">
-				<label for="categoryId">Book Category</label> <select
+			<div class="form-group col-md-6"  th:field="*{categoryId}">
+				<label for="categoryId" class="control-label">Book Category</label> <select
 					class="form-control" id="categoryId" name="categoryId">
 					<option th:each="category: ${allCategories}"
 						th:value="${category.categoryId}"
 						th:text="${category.categoryName}">1</option>
 				</select>
+				<span style="color:red;" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}"> </span>
 			</div>
 
+		</div>
+		<div class="form-row" >
+			<div class="form-group col-md-6">
+			    <label class="control-label">Add Book Photo: </label>
+			    <strong><input type="file" name="image" accept="image/png, image/jpeg, image/jpg" />  </strong>
+			    
+    		</div>
 		</div>
 		<div class="form-group">
 			<div class="form-check">

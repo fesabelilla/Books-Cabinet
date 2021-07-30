@@ -4,17 +4,21 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.Books_Cabinet.imageFileHandling.FileUploadUtil;
 import com.project.Books_Cabinet.model.Book;
@@ -32,9 +36,8 @@ public class BookController {
 	@Autowired
 	BookRepo bookRepo;
 
-	@GetMapping("/book/advertise/add")
-	private String addBookForAdvertising(Model model) {
-		
+	@RequestMapping("/addBook")
+	private String bookAdd(Model model, Book book){
 		if (model.getAttribute("SessionId") == null) {
 			return "pageNotFound.html";
 		}
@@ -46,46 +49,55 @@ public class BookController {
 			
 			return "/books/addBook.html";
 		}
-		
-		
 	}
 	
+	@PostMapping("/addBookForm")
+	private String storeBookInforamtion(@Valid @ModelAttribute Book book,BindingResult bindingResult , Model model, @RequestParam("image") MultipartFile multipartFile,
+			HttpServletRequest request , RedirectAttributes redirectAttributes) throws IOException {
 	
-	@PostMapping("/book/advertise/add")
-	private String storeBookInforamtion(@ModelAttribute Book book, Model model, @RequestParam("image") MultipartFile multipartFile,HttpServletRequest request) throws IOException {
-		
-		if (model.getAttribute("SessionId") == null) {
-			return "pageNotFound.html";
+		try {
+			 
+			if(bindingResult.hasErrors()) {
+				List<Category> allCategories = categoryRepo.findAll();
+				
+				model.addAttribute("allCategories", allCategories);
+				
+				return "/books/addBook.html";
+			}
+			
+			else {
+					String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+			        book.setPhotos(fileName);
+					
+			        String sessionId = (String) request.getSession().getAttribute("SessionId");
+			        book.setUserId(Integer.valueOf(sessionId));
+			        
+			        bookRepo.save(book);
+			        
+			        System.out.println("Books : "+ book);
+			        
+			        String uploadDir = "./src/main/resources/static/images/";
+			        
+			        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+			        
+					redirectAttributes.addFlashAttribute("bookAddMessage","Book Added Successfully");
+					redirectAttributes.addFlashAttribute("alertClass","alert-success");
+			        
+					
+					return "redirect:/addBook";	
+				
+			}
+			
 		}
-		else {
+		catch (Exception e) {
+			// TODO: handle exception
 			
-			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-	        book.setPhotos(fileName);
-			
-	        String sessionId = (String) request.getSession().getAttribute("SessionId");
-	        book.setUserId(Integer.valueOf(sessionId));
-	        
-	        bookRepo.save(book);
-	        
-	        
-	        String uploadDir = "./src/main/resources/static/images/";
-	        
-	        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-	        
-			
-			System.out.println(book);
-			return "redirect:/book/advertise/add";
+			System.out.println(e);
+			return "/books/addBook.html";
 		}
 		
+		
 	}
-	
-	@GetMapping("/book/all")
-	public String GetAllBooks(Model model) {
-		 List<Book> allBooks = bookRepo.findAll();
-		 model.addAttribute("allBooks", allBooks);
-		return "/books/allBooks.html";
-	}
-	
-	
+		
 	
 }

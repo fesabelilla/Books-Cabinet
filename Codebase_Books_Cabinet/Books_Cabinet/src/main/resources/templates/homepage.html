@@ -7,7 +7,7 @@
 	 <link rel="stylesheet" href="/styles.css">
 </head>
 
-<body>
+<body  style=" background-color:#F0F3F6">
 
 	<div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
 	
@@ -33,38 +33,50 @@
 <div class="container" >
 ​
 	<div class="row">
-		<div class="col-xl-3" th:each="book : ${allBooks}">
-			<div class="card" style="width: 15rem;">
+		<div class="col-md-3" th:each="book : ${allBooks}">
+			<div class="card mb-3" style="width: 15rem; height: 25rem" >
 			<img class="card-img-top" width="160" height="180" th:src="'/images/' + ${book.photos}" alt="Card image cap">
 			
-				<div class="card-body">
+				<div class=" container ml-3">
 					<h5 class="card-title" style="color:blue" th:text=${book.bookName}><strong>Card title</strong></h5>
-					<p class="card-text" >Book Writer: <span th:text=${book.writer}></span></p>
+				</div>
+				<div class="container ml-3">
+					<p class="card-text font-weight-bold"   style="font-size:0.875em" >Book Writer: <span th:text=${book.writer}></span></p>
+				</div>
 				
-					
+				<div class="container ml-3 font-weight-bold">
 					<table>
 						<tr>
-							<td style="font-size:0.875em" >Published In : </td>
-							<td style="font-size:0.875em" th:text="' '+ ${book.publishingYear}"></td>
+							<td style="font-size: 0.875em">Published In :</td>
+							<td style="font-size: 0.875em"
+								th:text="' '+ ${book.publishingYear}"></td>
 						</tr>
 						<tr>
-							<td style="font-size:0.875em" >Price : </td>
-							<td style="font-size:0.875em" th:text="' '+${book.price} +' Taka'"></td>
+							<td style="font-size: 0.875em">Price :</td>
+							<td style="font-size: 0.875em; color:#1078E2;" 
+								th:text="' '+${book.price} +' Taka'"></td>
 						</tr>
 						<tr>
-							<td style="font-size:0.875em" >Book Condition : </td>
-							<td style="font-size:0.875em" th:text="' '+${book.bookCondition}"></td>
+							<td style="font-size: 0.875em">Book Condition :</td>
+							<td style="font-size: 0.875em"
+								th:text="' '+${book.bookCondition}"></td>
 						</tr>
 						<tr>
-							<td style="font-size:0.875em" >Book Language : </td>
-							<td style="font-size:0.875em" th:text="' '+${book.language}"></td>
+							<td style="font-size: 0.875em">Book Language :</td>
+							<td style="font-size: 0.875em" th:text="' '+${book.language}"></td>
 						</tr>
-						<tr>
-							<td><a href="#" class="btn btn-primary">Buy Now</a></td>
-							<td> <a href="#" class="btn btn-primary">AddToCard</a> </td>
-						</tr>
-					</table>	
+					</table>
 				</div>
+					<div class="container ml-2">
+						<table>
+							<tr>
+								<td><a href="#" class="btn btn-primary">BuyNow</a></td>
+								<td><a href="#" class="btn btn-primary">AddToCard</a> </td>
+							</tr>
+						</table>
+					</div>
+						
+				
 			</div>
 		</div>
 	</div>

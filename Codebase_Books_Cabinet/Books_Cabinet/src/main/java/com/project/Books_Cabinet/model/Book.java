@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -19,36 +20,32 @@ public class Book {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int bookId;
 
-	@NotNull
-	//@NotBlank
-	@Size(max = 70)
+	@NotEmpty(message =  "Must not be empty")
 	private String bookName;
 
 	@NotNull
 	private int categoryId;
 
-	@NotNull
-	//@NotBlank
+	@NotEmpty(message =  "Must not be empty")
 	private String writer;
 
-	@NotNull
-	//@NotBlank
+	@NotNull(message =  "Must not be empty")
 	private int publishingYear;
 
 	
+	@NotNull(message =  "Must not be empty")
 	private double price;
 
-	@NotNull
-	//@NotBlank
+	@NotEmpty(message =  "Must not be empty")
 	private String bookCondition;
 
-	@NotNull
-	//@NotBlank
+	@NotEmpty(message =  "Must not be empty")
 	private String language;
 
 	
 	@Column(precision = 2, scale = 1)
 	private double rating;
+	
 	
 	@Column(nullable = true, length = 64)
     private String photos;
