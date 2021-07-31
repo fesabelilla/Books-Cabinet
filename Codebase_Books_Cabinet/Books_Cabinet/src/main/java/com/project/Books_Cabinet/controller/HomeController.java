@@ -91,6 +91,7 @@ public class HomeController {
 					sessionID = userID;
 					request.getSession().setAttribute("SessionId", sessionID);					
 					
+				
 					model.addAttribute("sellerName", user.iterator().next().getFullName());
 					
 					redirectAttributes.addFlashAttribute("message", "Login Successfully!");

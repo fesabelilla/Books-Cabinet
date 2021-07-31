@@ -1,6 +1,7 @@
 package com.project.Books_Cabinet.controller;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +24,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.project.Books_Cabinet.imageFileHandling.FileUploadUtil;
 import com.project.Books_Cabinet.model.Book;
 import com.project.Books_Cabinet.model.Category;
+import com.project.Books_Cabinet.model.SellBooks;
+import com.project.Books_Cabinet.model.Seller;
 import com.project.Books_Cabinet.repository.BookRepo;
 import com.project.Books_Cabinet.repository.CategoryRepo;
+import com.project.Books_Cabinet.repository.SellBooksRepo;
+import com.project.Books_Cabinet.repository.SellerRepo;
 
 @Controller
 @SessionAttributes("SessionId")
@@ -35,6 +40,12 @@ public class BookController {
 	
 	@Autowired
 	BookRepo bookRepo;
+	
+	@Autowired
+	SellerRepo sellerRepo;
+	
+	@Autowired
+	SellBooksRepo sellBooksRepo;
 
 	@RequestMapping("/addBook")
 	private String bookAdd(Model model, Book book){
@@ -53,7 +64,7 @@ public class BookController {
 	
 	@PostMapping("/addBookForm")
 	private String storeBookInforamtion(@Valid @ModelAttribute Book book,BindingResult bindingResult , Model model, @RequestParam("image") MultipartFile multipartFile,
-			HttpServletRequest request , RedirectAttributes redirectAttributes) throws IOException {
+			HttpServletRequest request , RedirectAttributes redirectAttributes, SellBooks sellBooks) throws IOException {
 	
 		try {
 			 
@@ -70,9 +81,21 @@ public class BookController {
 			        book.setPhotos(fileName);
 					
 			        String sessionId = (String) request.getSession().getAttribute("SessionId");
+			    
 			        book.setUserId(Integer.valueOf(sessionId));
 			        
 			        bookRepo.save(book);
+			        
+			        Collection<Seller> user = sellerRepo.findBysId(Integer.valueOf(sessionId));
+			        
+			        //System.out.println(user.iterator().next().getSellerType());
+			        sellBooks.setType(user.iterator().next().getSellerType());
+			        sellBooks.setSellerId(Integer.valueOf(sessionId));
+			        sellBooks.setBookId(book.getBookId());
+			        
+			        
+			        sellBooksRepo.save(sellBooks);
+			        
 			        
 			        System.out.println("Books : "+ book);
 			        
