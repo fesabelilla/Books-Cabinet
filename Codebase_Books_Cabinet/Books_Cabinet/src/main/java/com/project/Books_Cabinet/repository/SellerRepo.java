@@ -16,4 +16,11 @@ public interface SellerRepo extends JpaRepository<Seller, Integer>{
 
 	Collection<Seller> findBysId(int parseInt);
 
+	//@Query("from Seller order by sId desc limit '1'")
+	@Query("FROM Seller WHERE sId=(SELECT MAX(sId) FROM Seller)")
+	Collection<Seller> finds();
+
+	
+	//Collection<Seller> findTopByOrderBysIdDesc();
+
 }

@@ -98,6 +98,7 @@ public class HomeController {
 				    redirectAttributes.addFlashAttribute("alertClass", "alert-success");
 					
 					System.out.println(user.iterator().next().getFullName()+"   "+sessionID);
+					
 					return "redirect:/home";
 					
 				}
