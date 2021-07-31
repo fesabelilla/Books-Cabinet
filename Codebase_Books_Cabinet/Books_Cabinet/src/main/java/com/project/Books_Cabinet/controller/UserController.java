@@ -80,12 +80,7 @@ public class UserController {
 			return "redirect:/userRegistration";
 		}
 		
-		
-		
 	}
-	
-	
-	
 	
 	@RequestMapping("/userRegistration")
 	private String userRegistration(User user) {

@@ -23,8 +23,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.Books_Cabinet.model.Login;
 import com.project.Books_Cabinet.model.Seller;
+import com.project.Books_Cabinet.model.User;
 import com.project.Books_Cabinet.repository.LoginRepo;
 import com.project.Books_Cabinet.repository.SellerRepo;
+import com.project.Books_Cabinet.repository.UserRepo;
 
 @SessionAttributes("SessionId")
 @Controller
@@ -34,6 +36,8 @@ public class SellerController {
 	SellerRepo sellerRepo;
 	@Autowired
 	LoginRepo loginRepo;
+	@Autowired
+	UserRepo userRepo;
 	
 	String msg="";
 
@@ -129,7 +133,7 @@ public class SellerController {
 	
 	
 	@PostMapping("/updateSeller")
-	private String updateSeller(@ModelAttribute Seller seller,HttpServletRequest request, RedirectAttributes redirectAttributes) {
+	private String updateSeller(@ModelAttribute Seller seller,@ModelAttribute User user,HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		
 		String sessionId = (String) request.getSession().getAttribute("SessionId");
 		
@@ -141,12 +145,18 @@ public class SellerController {
 		
 		else {
 			Seller updateSeller = sellerRepo.getOne(Integer.parseInt(sessionId));
+			User updateUser = userRepo.getOne(Integer.parseInt(sessionId));
 			
 			updateSeller.setFullName(seller.getFullName());
 			updateSeller.setPhoneNumber(seller.getPhoneNumber());
 			updateSeller.setAddress(seller.getAddress());
 			
+			updateUser.setFullName(seller.getFullName());
+			updateUser.setPhoneNumber(seller.getPhoneNumber());
+			updateUser.setAddress(seller.getAddress());
+			
 			sellerRepo.save(updateSeller);
+			userRepo.save(updateUser);
 			
 			redirectAttributes.addFlashAttribute("message", "Updated Successfully!");
 		    redirectAttributes.addFlashAttribute("alertClass", "alert-success");
