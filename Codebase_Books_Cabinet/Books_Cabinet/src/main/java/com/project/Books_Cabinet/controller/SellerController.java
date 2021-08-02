@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.Books_Cabinet.EncryptedPassword.EncryptedPassword;
 import com.project.Books_Cabinet.model.Login;
 import com.project.Books_Cabinet.model.Seller;
 import com.project.Books_Cabinet.model.User;
@@ -61,6 +62,7 @@ public class SellerController {
 				login.setType(seller.getSellerType());
 				//System.out.println(seller.getEmail()+" "+seller.getPassword()+" "+seller.getSellerType());
 				
+				seller.setPassword(EncryptedPassword.getMd5(seller.getPassword()));
 				
 				loginRepo.save(login);
 				sellerRepo.save(seller);

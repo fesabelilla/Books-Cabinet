@@ -1,5 +1,8 @@
 package com.project.Books_Cabinet.controller;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.Books_Cabinet.EncryptedPassword.EncryptedPassword;
 import com.project.Books_Cabinet.model.Seller;
 import com.project.Books_Cabinet.model.User;
 import com.project.Books_Cabinet.repository.SellerRepo;
@@ -50,8 +54,12 @@ public class UserController {
 				
 				Collection<Seller> lastSellerInTheTable = sellerRepo.finds();
 				sellerLastId = lastSellerInTheTable.iterator().next().getsId();
+				
 				user.setUserId(sellerLastId+1);
-			
+				
+				String passwordEncry = EncryptedPassword.getMd5(user.getPassword());
+				user.setPassword(passwordEncry);
+				
 				System.out.println(sellerLastId+1);
 				userRepo.save(user);
 				
@@ -61,7 +69,7 @@ public class UserController {
 				seller.setFullName(user.getFullName());
 				seller.setGender(user.getGender());
 				seller.setNid(user.getNid());
-				seller.setPassword(user.getPassword());
+				seller.setPassword(passwordEncry);
 				seller.setPhoneNumber(user.getPhoneNumber());
 				seller.setSellerType(user.getUserType());
 				seller.setShopOrPublicationName("MyShop");

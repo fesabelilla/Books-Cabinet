@@ -1,6 +1,5 @@
 package com.project.Books_Cabinet.controller;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -15,11 +14,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.Books_Cabinet.EncryptedPassword.EncryptedPassword;
 import com.project.Books_Cabinet.model.Book;
 import com.project.Books_Cabinet.model.Login;
 import com.project.Books_Cabinet.model.Seller;
@@ -50,15 +51,41 @@ public class HomeController {
 		m.addAttribute("msg",msg);
 	}
 	
+	
 	@RequestMapping("/home")
-	private String homepage( Model model) {
+	private String homepage(Model model) {
 		
 		List<Book> allBooks = bookRepo.findAll();
 		 model.addAttribute("allBooks", allBooks);
 	
 		return "homepage.html";
 	}
+	
+	@RequestMapping("/usedBooks")
+	private String usedBooks(Model model){
+		
+		List<Book> allBooks = bookRepo.findUsedBook();
+		model.addAttribute("allBooks",allBooks);
+		
+		return "homepage.html";
+	}
+	
+	@RequestMapping("/newBooks")
+	private String newBooks(Model model) {
+		
+		List<Book> allBooks = bookRepo.findNewBook();
+		model.addAttribute("allBooks",allBooks);
+		
+		return "homepage.html";
+	}
 
+	@PostMapping("/searchBook")
+	private String searchBook(@RequestParam String search,Model model){
+		List<Book> allBooks = bookRepo.findSearchBook(search);
+		model.addAttribute("allBooks",allBooks);
+		
+		return "homepage.html";
+	}
 	
 	@PostMapping("/loginForm")
 	private String logIn(@Valid @ModelAttribute Login login,Seller seller,BindingResult bindingResult,HttpServletRequest request
@@ -69,7 +96,7 @@ public class HomeController {
 			}
 			
 			else {
-				Collection<Seller> user = sellerRepo.ValidUser(login.getEmail(), login.getPassword());
+				Collection<Seller> user = sellerRepo.ValidUser(login.getEmail(), EncryptedPassword.getMd5(login.getPassword()));
 				
 				if (user.size() == 0) {
 					System.out.println("no user");
