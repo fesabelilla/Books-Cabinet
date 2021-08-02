@@ -97,7 +97,7 @@ public class BookController {
 			        sellBooksRepo.save(sellBooks);
 			        
 			        
-			        System.out.println("Books : "+ book);
+			        //System.out.println("Books : "+ book);
 			        
 			        String uploadDir = "./src/main/resources/static/images/";
 			        

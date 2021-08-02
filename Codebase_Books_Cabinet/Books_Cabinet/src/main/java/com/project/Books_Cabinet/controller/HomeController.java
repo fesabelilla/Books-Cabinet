@@ -52,10 +52,10 @@ public class HomeController {
 	
 	@RequestMapping("/home")
 	private String homepage( Model model) {
+		
 		List<Book> allBooks = bookRepo.findAll();
 		 model.addAttribute("allBooks", allBooks);
-		
-		
+	
 		return "homepage.html";
 	}
 

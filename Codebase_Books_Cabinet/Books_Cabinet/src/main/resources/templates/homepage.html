@@ -9,8 +9,6 @@
 
 <body  style=" background-color:#F0F3F6">
 
-	<div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
-	
 	<div style="height: 10px; background:#27aae1;"></div>
 	
 	<!-- Nav-bar start -->
@@ -20,6 +18,8 @@
 	<div style="height: 10px; background:#27aae1;"></div>
 
 	<!-- Nav-bar end-->
+	
+	<div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
 
 	<!--HEADER
 	<header th:replace="fragments :: htmlHeader"></header>
@@ -58,7 +58,7 @@
 						</tr>
 						<tr>
 							<td style="font-size: 0.875em">Book Condition :</td>
-							<td style="font-size: 0.875em"
+							<td style="font-size: 0.875em; color:Blue"
 								th:text="' '+${book.bookCondition}"></td>
 						</tr>
 						<tr>
@@ -67,15 +67,11 @@
 						</tr>
 					</table>
 				</div>
-					<div class="container ml-2">
-						<table>
-							<tr>
-								<td><a href="#" class="btn btn-primary">BuyNow</a></td>
-								<td><a href="#" class="btn btn-primary">AddToCard</a> </td>
-							</tr>
-						</table>
-					</div>
-						
+				
+				<div class="text-center mt-2" th:if="${SessionId}" >
+					<a th:href="'buyBook/?bookId='+${book.bookId}" class="card=link btn btn-info">Buy Now</a>
+			    </div>
+				
 				
 			</div>
 		</div>

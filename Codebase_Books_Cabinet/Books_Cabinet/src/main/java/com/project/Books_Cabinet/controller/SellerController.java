@@ -145,19 +145,20 @@ public class SellerController {
 		
 		else {
 			Seller updateSeller = sellerRepo.getOne(Integer.parseInt(sessionId));
-			User updateUser = userRepo.getOne(Integer.parseInt(sessionId));
-			
 			updateSeller.setFullName(seller.getFullName());
 			updateSeller.setPhoneNumber(seller.getPhoneNumber());
 			updateSeller.setAddress(seller.getAddress());
-			
-			updateUser.setFullName(seller.getFullName());
-			updateUser.setPhoneNumber(seller.getPhoneNumber());
-			updateUser.setAddress(seller.getAddress());
-			
 			sellerRepo.save(updateSeller);
-			userRepo.save(updateUser);
 			
+			if(seller.getSellerType().equals("user")) {
+				User updateUser = userRepo.getOne(Integer.parseInt(sessionId));
+				updateUser.setFullName(seller.getFullName());
+				updateUser.setPhoneNumber(seller.getPhoneNumber());
+				updateUser.setAddress(seller.getAddress());
+				userRepo.save(updateUser);
+			}
+			
+				
 			redirectAttributes.addFlashAttribute("message", "Updated Successfully!");
 		    redirectAttributes.addFlashAttribute("alertClass", "alert-success");
 			
