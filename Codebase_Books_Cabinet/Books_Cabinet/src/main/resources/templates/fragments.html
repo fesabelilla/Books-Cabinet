@@ -34,7 +34,11 @@
 				<li class="nav-item" th:if="${SessionId}">
 					<a href="sellerProfile" class="nav-link"> <i class="fas fa-user text-success"></i>My Profile</a>
 				</li>
-	
+				
+				<li class="nav-item" th:if="${SessionId}" >
+					<a href="history" class="nav-link">My Books and Orders</a>
+				</li>
+				
 				<li class="nav-item">
 					<a href="usedBooks" class="nav-link">Used Books</a>
 				</li>
@@ -57,7 +61,7 @@
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
 					  <form method="post" action="/searchBook">
-					    <input type="text" placeholder="Search BookName" name="search"></input>
+					    <input type="text" placeholder="Search BookName" name="search" th:value="${search}"></input>
 					    <button type="submit">Search</button>
 					  </form>
 				</li>

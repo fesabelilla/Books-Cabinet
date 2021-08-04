@@ -83,6 +83,7 @@ public class HomeController {
 	private String searchBook(@RequestParam String search,Model model){
 		List<Book> allBooks = bookRepo.findSearchBook(search);
 		model.addAttribute("allBooks",allBooks);
+		model.addAttribute("search",search);
 		
 		return "homepage.html";
 	}

@@ -1,7 +1,5 @@
 package com.project.Books_Cabinet.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +69,8 @@ public class OrderController {
 			order.setSellerType(seller.getSellerType());
 			order.setDeliveryPrice(60.0);
 			order.setOrderStatus("Complete");
+			order.setBookName(book.getBookName());
+			order.setPhotos(book.getPhotos());
 			
 			orderBookRepo.save(order);
 			
@@ -110,5 +110,4 @@ public class OrderController {
 		
 	}
 	
-
 }

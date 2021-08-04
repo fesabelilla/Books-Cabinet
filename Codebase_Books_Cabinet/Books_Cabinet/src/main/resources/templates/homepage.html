@@ -71,6 +71,10 @@
 				<div class="text-center mt-2" th:if="${SessionId}" >
 					<a th:href="'buyBook/?bookId='+${book.bookId}" class="card=link btn btn-info">Buy Now</a>
 			    </div>
+			    
+			    <div class="text-center mt-2" th:unless ="${SessionId}" >
+					<a th:href="registration" class="card=link btn btn-info">Buy Now</a>
+			    </div>
 				
 				
 			</div>

@@ -1,11 +1,13 @@
 package com.project.Books_Cabinet.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class OrderTable {
@@ -58,6 +60,12 @@ public class OrderTable {
 	
 	@NotEmpty
 	private String orderStatus;
+	
+	@NotEmpty
+	private String bookName;
+	
+	@Column(nullable = true, length = 64)
+    private String photos;
 
 	public OrderTable() {
 		super();
@@ -67,7 +75,7 @@ public class OrderTable {
 			@NotNull int bookID, @NotEmpty String userName, @NotEmpty String sellerName, @NotEmpty String userPhoneNo,
 			@NotEmpty String sellerPhoneNo, @NotEmpty String userAddress, @NotEmpty String sellerAddress,
 			@NotEmpty String userType, @NotEmpty String sellerType, @NotNull double deliveryPrice,
-			@NotNull double totalPrice, @NotEmpty String orderStatus) {
+			@NotNull double totalPrice, @NotEmpty String orderStatus,String photos,@NotNull @Size(max = 70) String bookName) {
 		super();
 		this.orderId = orderId;
 		this.userId = userId;
@@ -85,6 +93,8 @@ public class OrderTable {
 		this.deliveryPrice = deliveryPrice;
 		this.totalPrice = totalPrice;
 		this.orderStatus = orderStatus;
+		this.bookName = bookName;
+		this.photos = photos;
 	}
 
 	public int getOrderId() {
@@ -213,6 +223,22 @@ public class OrderTable {
 
 	public void setOrderStatus(String orderStatus) {
 		this.orderStatus = orderStatus;
+	}
+
+	public String getBookName() {
+		return bookName;
+	}
+
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
+	}
+
+	public String getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(String photos) {
+		this.photos = photos;
 	}
 
 	
