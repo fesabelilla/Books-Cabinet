@@ -49,11 +49,18 @@ public class SellerController {
 	
 	
 	@PostMapping("/sellerForm")
-	private String contactForm(@Valid @ModelAttribute Seller seller, BindingResult bindingResult, @ModelAttribute Login login,RedirectAttributes redirectAttributes ) {
+	private String contactForm(@Valid @ModelAttribute Seller seller, BindingResult bindingResult, @ModelAttribute Login login,
+			RedirectAttributes redirectAttributes, Model model ) {
 	
 		try {
 			
 			if(bindingResult.hasErrors()) {	
+				model.addAttribute("name",seller.getFullName());
+				model.addAttribute("phoneNo",seller.getPhoneNumber());
+				model.addAttribute("address",seller.getAddress());
+				model.addAttribute("spName",seller.getShopOrPublicationName());
+				model.addAttribute("nid",seller.getNid());
+				model.addAttribute("email",seller.getEmail());
 				return "/seller/sellerRegistration.html";
 			}
 			else {

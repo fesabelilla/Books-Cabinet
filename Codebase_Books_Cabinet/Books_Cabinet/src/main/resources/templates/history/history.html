@@ -33,7 +33,7 @@
 			<tbody>
 				<tr th:each="history : ${listOfUnsoldBooks}">
 					<td th:text=${history.bookId}></td>
-					<td><img class="card-img-top" width="40" height="50" th:src="'/images/' + ${history.photos}" alt="Card image cap">
+					<td><img class="card-img-top" width="50" height="50" th:src="'/images/' + ${history.photos}" alt="Card image cap">
 					</td>
 					<td th:text=${history.bookName}></td>
 					<td th:text=${history.price}></td>
@@ -60,7 +60,7 @@
 			<tbody>
 				<tr th:each="history : ${listOfSoldBooksList}">
 					<td th:text=${history.orderId}></td>
-					<td><img class="card-img-top" width="40" height="50" th:src="'/images/' + ${history.photos}" alt="Card image cap">
+					<td><img class="card-img-top" width="50" height="50" th:src="'/images/' + ${history.photos}" alt="Card image cap">
 					</td>
 					<td th:text=${history.bookName}></td>
 					<td th:text=${history.price}></td>
@@ -87,7 +87,7 @@
 				<tbody>
 					<tr th:each="history : ${buyBooks}">
 						<td th:text=${history.orderId}></td>
-						<td><img class="card-img-top" width="40" height="50" th:src="'/images/' + ${history.photos}" alt="Card image cap">
+						<td><img class="card-img-top" width="50" height="50" th:src="'/images/' + ${history.photos}" alt="Card image cap">
 						</td>
 						<td th:text=${history.bookName}></td>
 						<td th:text=${history.price}></td>

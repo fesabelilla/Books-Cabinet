@@ -42,10 +42,15 @@ public class UserController {
 	
 	@PostMapping("/userForm")
 	private String userForm(@Valid @ModelAttribute User user, BindingResult bindingResult,
-			RedirectAttributes redirectAttributes, @ModelAttribute Seller seller) {
+			RedirectAttributes redirectAttributes, @ModelAttribute Seller seller,Model model) {
 		
 		try {
 			if(bindingResult.hasErrors()) {
+				model.addAttribute("name",user.getFullName());
+				model.addAttribute("phoneNo",user.getPhoneNumber());
+				model.addAttribute("address",user.getAddress());
+				model.addAttribute("nid",user.getNid());
+				model.addAttribute("email",user.getEmail());
 				return "/users/userRegistration.html";
 			}
 			else {

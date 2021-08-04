@@ -33,22 +33,30 @@ public class HistoryController {
 	private String history(Model model,HttpServletRequest request) {
 		String sessionId =  (String) request.getSession().getAttribute("SessionId");
 		
-		int userId = Integer.parseInt(sessionId);
-		
-		Collection<Seller> user = sellerRepo.findBysId(userId);
-		if((user.iterator().next().getSellerType()).equals("user")) {
-			List<OrderTable> buyBooks = orderBookRepo.findByUserId(userId);
-			model.addAttribute("userOrder","user");
-			model.addAttribute("buyBooks",buyBooks);
+		if(sessionId == null) {
+			return "pageNotFound.html";
 		}
 		
-		List<Book> listOfUnsoldBooks = bookRepo.findbyUserId(userId);
-		model.addAttribute("listOfUnsoldBooks",listOfUnsoldBooks);
+		else {
+			int userId = Integer.parseInt(sessionId);
+			
+			Collection<Seller> user = sellerRepo.findBysId(userId);
+			
+			if((user.iterator().next().getSellerType()).equals("user")) {
+				List<OrderTable> buyBooks = orderBookRepo.findByUserId(userId);
+				model.addAttribute("userOrder","user");
+				model.addAttribute("buyBooks",buyBooks);
+			}
+			
+			List<Book> listOfUnsoldBooks = bookRepo.findbyUserId(userId);
+			model.addAttribute("listOfUnsoldBooks",listOfUnsoldBooks);
+			
+			List<OrderTable> listOfSoldBooksList = orderBookRepo.findBySellerId(userId);
+			model.addAttribute("listOfSoldBooksList",listOfSoldBooksList);
+			
+			return "/history/history.html";
+		}
 		
-		List<OrderTable> listOfSoldBooksList = orderBookRepo.findBySellerId(userId);
-		model.addAttribute("listOfSoldBooksList",listOfSoldBooksList);
-		
-		return "/history/history.html";
 	}
 
 }
