@@ -59,7 +59,7 @@ public class OrderController {
 	private String orderTable(@ModelAttribute OrderTable order,RedirectAttributes redirectAttributes) {
 		Seller seller = userRepo.getById(book.getUserId());
 		if(user.getSellerType().equals("user")) {
-			if(user.getsId()!=userId) {
+			if(seller.getsId()!=userId) {
 				order.setUserId(userId);
 				order.setSellerId(seller.getsId());
 				order.setBookID(book.getBookId());
