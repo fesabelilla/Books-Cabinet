@@ -59,45 +59,53 @@ public class OrderController {
 	private String orderTable(@ModelAttribute OrderTable order,RedirectAttributes redirectAttributes) {
 		Seller seller = userRepo.getById(book.getUserId());
 		if(user.getSellerType().equals("user")) {
-			order.setUserId(userId);
-			order.setSellerId(seller.getsId());
-			order.setBookID(book.getBookId());
-			order.setSellerName(seller.getFullName());
-			order.setSellerPhoneNo(seller.getPhoneNumber());
-			order.setSellerAddress(seller.getAddress());
-			order.setUserType(user.getSellerType());
-			order.setSellerType(seller.getSellerType());
-			order.setDeliveryPrice(60.0);
-			order.setOrderStatus("Complete");
-			order.setBookName(book.getBookName());
-			order.setPhotos(book.getPhotos());
-			
-			orderBookRepo.save(order);
-			
-			if(book.getBookCondition().equals("Used")) {
+			if(user.getsId()!=userId) {
+				order.setUserId(userId);
+				order.setSellerId(seller.getsId());
+				order.setBookID(book.getBookId());
+				order.setSellerName(seller.getFullName());
+				order.setSellerPhoneNo(seller.getPhoneNumber());
+				order.setSellerAddress(seller.getAddress());
+				order.setUserType(user.getSellerType());
+				order.setSellerType(seller.getSellerType());
+				order.setDeliveryPrice(60.0);
+				order.setOrderStatus("Complete");
+				order.setBookName(book.getBookName());
+				order.setPhotos(book.getPhotos());
 				
-				OldBooksHistoryAfterSell historyAfterSell = new OldBooksHistoryAfterSell();
-				historyAfterSell.setBookCondition(book.getBookCondition());
-				historyAfterSell.setBookId(book.getBookId());
-				historyAfterSell.setBookName(book.getBookName());
-				historyAfterSell.setCategoryId(book.getCategoryId());
-				historyAfterSell.setLanguage(book.getLanguage());
-				historyAfterSell.setPhotos(book.getPhotos());
-				historyAfterSell.setPrice(book.getPrice());
-				historyAfterSell.setPublishingYear(book.getPublishingYear());
-				historyAfterSell.setRating(book.getRating());
-				historyAfterSell.setUserId(book.getUserId());
-				historyAfterSell.setWriter(book.getWriter());
+				orderBookRepo.save(order);
 				
-				oldBooksHistoryAfterSellRepo.save(historyAfterSell);
+				if(book.getBookCondition().equals("Used")) {
+					
+					OldBooksHistoryAfterSell historyAfterSell = new OldBooksHistoryAfterSell();
+					historyAfterSell.setBookCondition(book.getBookCondition());
+					historyAfterSell.setBookId(book.getBookId());
+					historyAfterSell.setBookName(book.getBookName());
+					historyAfterSell.setCategoryId(book.getCategoryId());
+					historyAfterSell.setLanguage(book.getLanguage());
+					historyAfterSell.setPhotos(book.getPhotos());
+					historyAfterSell.setPrice(book.getPrice());
+					historyAfterSell.setPublishingYear(book.getPublishingYear());
+					historyAfterSell.setRating(book.getRating());
+					historyAfterSell.setUserId(book.getUserId());
+					historyAfterSell.setWriter(book.getWriter());
+					
+					oldBooksHistoryAfterSellRepo.save(historyAfterSell);
+					
+					bookRepo.deleteById(book.getBookId());
+				}
 				
-				bookRepo.deleteById(book.getBookId());
+				redirectAttributes.addFlashAttribute("message","Order completed Successfully!");
+				redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+				
+				return "redirect:/home";
 			}
-			
-			redirectAttributes.addFlashAttribute("message","Order completed Successfully!");
-			redirectAttributes.addFlashAttribute("alertClass", "alert-success");
-			
-			return "redirect:/home";
+			else {
+				redirectAttributes.addFlashAttribute("message","This book is yours. So you can't buy this book!!");
+				redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+				return "redirect:/home";
+				
+			}
 		}
 		
 		else {

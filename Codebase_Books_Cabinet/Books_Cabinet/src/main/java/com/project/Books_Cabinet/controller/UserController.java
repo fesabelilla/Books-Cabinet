@@ -58,7 +58,13 @@ public class UserController {
 				int sellerLastId;
 				
 				Collection<Seller> lastSellerInTheTable = sellerRepo.finds();
-				sellerLastId = lastSellerInTheTable.iterator().next().getsId();
+				
+				try {
+					sellerLastId = lastSellerInTheTable.iterator().next().getsId();
+				}
+				catch (Exception e) {
+					sellerLastId = 0;
+				}
 				
 				user.setUserId(sellerLastId+1);
 				

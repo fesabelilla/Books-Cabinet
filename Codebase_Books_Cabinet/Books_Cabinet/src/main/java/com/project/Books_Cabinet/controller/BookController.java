@@ -28,6 +28,8 @@ import com.project.Books_Cabinet.model.SellBooks;
 import com.project.Books_Cabinet.model.Seller;
 import com.project.Books_Cabinet.repository.BookRepo;
 import com.project.Books_Cabinet.repository.CategoryRepo;
+import com.project.Books_Cabinet.repository.OldBooksHistoryAfterSellRepo;
+import com.project.Books_Cabinet.repository.OrderBookRepo;
 import com.project.Books_Cabinet.repository.SellBooksRepo;
 import com.project.Books_Cabinet.repository.SellerRepo;
 
@@ -46,6 +48,19 @@ public class BookController {
 	
 	@Autowired
 	SellBooksRepo sellBooksRepo;
+	
+	
+	@Autowired
+	OrderBookRepo orderBookRepo;
+	@Autowired
+	OldBooksHistoryAfterSellRepo oldBooksHistoryAfterSellRepo;
+	
+	Book book;
+	int userId;
+	int bookIds;
+	
+	
+	
 
 	@RequestMapping("/addBook")
 	private String bookAdd(Model model, Book book){
@@ -120,6 +135,48 @@ public class BookController {
 		}
 		
 		
+	}
+	
+	@GetMapping("/editBook")
+	private String updateBookInfo(@RequestParam String bookId, Model model,HttpServletRequest request) {
+		
+		String sessionID = (String) request.getSession().getAttribute("SessionId");
+		
+		if(sessionID == null) {
+			return "pageNotFound.html";
+		}
+		else {
+			bookIds = Integer.parseInt(bookId);
+			book = bookRepo.getById(bookIds);
+			model.addAttribute("book",book);
+			
+			return "/books/editBook.html";
+		}
+
+	}
+	
+	@PostMapping("/editBook/editBookForm")
+	private String editBookForm(@ModelAttribute Book book,HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		
+		String sessionId = (String) request.getSession().getAttribute("SessionId");
+		
+		if(sessionId == null) {
+			return "pageNotFound.html";
+		}
+		
+		else {
+			Book updateInfoBook = bookRepo.getOne(bookIds);
+			
+			updateInfoBook.setPrice(book.getPrice());
+			bookRepo.save(updateInfoBook);
+			
+			redirectAttributes.addFlashAttribute("message", "Price Updated Successfully!");
+		    redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+			
+		    return "redirect:/history";
+		}
+		
+			
 	}
 		
 	

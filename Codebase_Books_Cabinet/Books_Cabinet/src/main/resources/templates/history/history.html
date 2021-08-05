@@ -16,6 +16,9 @@
 	<div style="height: 10px; background:#27aae1;"></div>
 
 	<!-- Nav-bar end-->
+	
+	<div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
+	
 	<br>
 	<div>
 	<h4>Waiting For Sell</h4>
@@ -27,6 +30,7 @@
 					<th scope="col">Book Name</th>
 					<th scope="col">Price (Taka)</th>
 					<th scope="col">Current Status</th>
+					<th scope="col">Edit Book Price</th>
 				</tr>
 			</thead>
 			
@@ -37,7 +41,8 @@
 					</td>
 					<td th:text=${history.bookName}></td>
 					<td th:text=${history.price}></td>
-					<td >Waiting For Sell</td>
+					<td>Waiting For Sell</td>
+					<td><a th:href="'editBook/?bookId='+${history.bookId}" class="card=link btn btn-info">Edit</a></td>
 				</tr>
 			</tbody>
 		</table>
