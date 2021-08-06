@@ -12,9 +12,10 @@ Except for the old books, users can purchase new books directly from publishers 
 4. Registered User can sell their used books
 5. Registered User can buy old book
 6. Seller [Shop owner and Publisher] can sell new book
-7. User can find book by their category[Used books and New Books]
-8. User can search book by book name or sub string of the book name
-9. Everything is secured here[Password is encrypted]
+7. Registered User can update their books price
+8. User can find book by their category[Used books and New Books]
+9. User can search book by book name or sub string of the book name
+10. Everything is secured here[Password is encrypted]
 
 # Technology:
 1. HTML
