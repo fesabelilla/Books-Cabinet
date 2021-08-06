@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	
+<head th:replace="fragments :: htmlHead">
+	<title>Home Page</title>
+	 <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body  style=" background-color:#F0F3F6">
+
+	<div style="height: 10px; background:#27aae1;"></div>
+	
+	<!-- Nav-bar start -->
+	
+	<nav  th:replace="fragments :: htmlNavbar"></nav>
+	
+	<div style="height: 10px; background:#27aae1;"></div>
+
+	<!-- Nav-bar end-->
+	
+	<div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"></div>
+
+	<!--HEADER
+	<header th:replace="fragments :: htmlHeader"></header>
+	 -->
+	 
+	<!-- show books -->
+	
+    <!--For Row containing all card-->
+    
+        <!--Card 1-->
+<div class="container" >
+​
+	<div class="row">
+		<div class="col-md-3" th:each="book : ${allBooks}">
+			<div class="card mb-3" style="width: 15rem; height: 25rem" >
+			<img class="card-img-top" width="160" height="180" th:src="'/images/' + ${book.photos}" alt="Card image cap">
+			
+				<div class=" container ml-3">
+					<h5 class="card-title" style="color:blue" th:text=${book.bookName}><strong>Card title</strong></h5>
+				</div>
+				<div class="container ml-3">
+					<p class="card-text font-weight-bold"   style="font-size:0.875em" >Writer: <span th:text=${book.writer}></span></p>
+				</div>
+				
+				<div class="container ml-3 font-weight-bold">
+					<table>
+						<tr>
+							<td style="font-size: 0.875em">Published In :</td>
+							<td style="font-size: 0.875em"
+								th:text="' '+ ${book.publishingYear}"></td>
+						</tr>
+						<tr>
+							<td style="font-size: 0.875em">Price :</td>
+							<td style="font-size: 0.875em; color:#1078E2;" 
+								th:text="' '+${book.price} +' Taka'"></td>
+						</tr>
+						<tr>
+							<td style="font-size: 0.875em">Book Condition :</td>
+							<td style="font-size: 0.875em; color:Blue"
+								th:text="' '+${book.bookCondition}"></td>
+						</tr>
+						<tr>
+							<td style="font-size: 0.875em">Book Language :</td>
+							<td style="font-size: 0.875em" th:text="' '+${book.language}"></td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="text-center mt-2" th:if="${SessionId}" >
+					<a th:href="'buyBook/?bookId='+${book.bookId}" class="card=link btn btn-info">Buy Now</a>
+			    </div>
+			    
+			    <div class="text-center mt-2" th:unless ="${SessionId}" >
+					<a th:href="registration" class="card=link btn btn-info">Buy Now</a>
+			    </div>
+				
+				
+			</div>
+		</div>
+	</div>
+       
+       
+ </div>
+	
+
+    <br>
+	
+	<!-- FOOTER -->
+	<footer th:replace="fragments :: htmlFooter"></footer>
+	<div style="height: 10px; background:#27aae1;"></div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+	<!-- for date -->
+
+	<script >
+		$('#year').text(new Date().getFullYear());
+	</script>
+
+</body>
+</html>

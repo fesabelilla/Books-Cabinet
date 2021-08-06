@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	
+<head th:fragment="htmlHead">
+      <meta charset="ISO-8859-1">
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	  <link rel="stylesheet" href="static/styles.css">
+	
+</head>
+
+<body>
+	
+	<!-- Nav-bar -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="htmlNavbar" >
+
+		<div class="container">
+	
+			<a href="home" class="navbar-brand"> Books Cabinet </a>
+	
+			<button class="navbar-toggler" data-toggle="collapse" data-target = "#navbarcollapseCMS">
+	
+				<span class="navbar-toggler-icon"></span>
+	
+			</button>
+	
+			<div class="collapse navbar-collapse" id="navbarcollapseCMS">
+	
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item" th:if="${SessionId}">
+					<a href="sellerProfile" class="nav-link"> <i class="fas fa-user text-success"></i>My Profile</a>
+				</li>
+				
+				<li class="nav-item" th:if="${SessionId}" >
+					<a href="history" class="nav-link">My Books and Orders</a>
+				</li>
+				
+				<li class="nav-item">
+					<a href="usedBooks" class="nav-link">Used Books</a>
+				</li>
+	
+				<li class="nav-item">
+					<a href="newBooks" class="nav-link">New Books</a>
+				</li>
+	
+				<li class="nav-item" th:if="${SessionId}">
+					<a href="addBook" class="nav-link">Add Book for Sell</a>
+				</li>
+				
+				<li class="nav-item" th:unless="${SessionId}">
+					<a href="registration" class="nav-link">Registration</a>
+				</li>
+				
+				
+			</ul>
+			
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					  <form method="post" action="/searchBook">
+					    <input type="text" placeholder="Search BookName" name="search" th:value="${search}"></input>
+					    <button type="submit">Search</button>
+					  </form>
+				</li>
+			</ul>
+			
+			<ul class="navbar-nav ml-auto">
+			
+				<li class="nav-item" th:if="${SessionId}">
+					<a href="destroy" class="nav-link text-danger"><i class="fas fa-sign-out-alt"></i> Logout</a>
+				</li>
+
+				<li th:unless="${SessionId}" class="nav-item">
+					<a href="login" class="nav-link link-black-100"> 
+					<i class="glph-icon flaticon-question mr-2"></i>LogIn
+					</a>
+				</li>
+						
+			</ul>
+	
+			</div>
+	
+		</div>
+
+	</nav>
+	
+	
+	<!--HEADER -->
+	
+	<header class="bg-dark text-white py-3" th:fragment="htmlHeader">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">	
+			<h3><i class="fas fa-text-height" style="color:white;"></i>Basic</h3>
+			</div>
+		</div>
+	</div>
+	</header>
+	
+	<!-- FOOTER -->
+	<footer class="bg-dark text-white"  th:fragment="htmlFooter">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<p class="lead text-center">Theme By | MZF | <span id="year"></span> &copy; --All right reserved</p>
+	
+				</div>
+				
+			</div>
+			
+		</div>
+
+	</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: htmlHead">
+	
+</head>
+
+<body>
+	
+	<br>
+	<div class="col-xl-9">
+		<div class="card">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-6">
+						<h4>Update Book Price</h4>
+						<hr>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-md-12">
+						
+						<form method="post" action="editBookForm">
+
+							<div class="form-group row">
+								<label for="bookName" class="col-4 col-form-label">Book Name</label>
+								<div class="col-8">
+									<input id="bookName" name="bookName" readonly class="form-control-plaintext"
+										type="text" th:value="${book.bookName}">
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="writer" class="col-4 col-form-label">Writer Name</label>
+								<div class="col-8">
+									<input id="writer" name="writer"
+									readonly class="form-control-plaintext" type="text"
+										th:value="${book.writer}">
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="price" class="col-4 col-form-label">Your Expected Price(Taka)</label>
+								<div class="col-8">
+									<input id="price" name="price" class="form-control here"
+										type="number" th:value="${book.price}">
+								</div>
+							</div>
+
+							
+							<div class="form-group row">
+								<label for="website" class="col-4 col-form-label text-danger">Update your Book Price</label>
+								<div class="col-8">
+									<button name="submit" type="submit" class="btn btn-primary">Update</button>
+								</div>
+							</div>
+						</form>
+						
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+
+	
+</body>
+
+</html>
