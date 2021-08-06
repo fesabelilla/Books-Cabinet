@@ -53,7 +53,7 @@ public class HomeController {
 	}
 	
 	
-	@RequestMapping("/home")
+	@GetMapping("/home")
 	private String homepage(Model model) {
 		
 		List<Book> allBooks = bookRepo.findAll();
@@ -62,7 +62,7 @@ public class HomeController {
 		return "homepage.html";
 	}
 	
-	@RequestMapping("/usedBooks")
+	@GetMapping("/usedBooks")
 	private String usedBooks(Model model){
 		
 		List<Book> allBooks = bookRepo.findUsedBook();
@@ -71,7 +71,7 @@ public class HomeController {
 		return "homepage.html";
 	}
 	
-	@RequestMapping("/newBooks")
+	@GetMapping("/newBooks")
 	private String newBooks(Model model) {
 		
 		List<Book> allBooks = bookRepo.findNewBook();
@@ -81,12 +81,26 @@ public class HomeController {
 	}
 
 	@PostMapping("/searchBook")
-	private String searchBook(@RequestParam String search,Model model){
+	private String searchBook(@RequestParam String search,Model model,RedirectAttributes redirectAttributes){
 		List<Book> allBooks = bookRepo.findSearchBook(search);
-		model.addAttribute("allBooks",allBooks);
-		model.addAttribute("search",search);
 		
-		return "homepage.html";
+		if(allBooks.isEmpty()) {
+			
+			redirectAttributes.addFlashAttribute("message", "No book found !!");
+		    redirectAttributes.addFlashAttribute("alertClass", "alert-info");
+		    
+			model.addAttribute("search",search);
+		    
+		    
+			return "redirect:/home";
+			
+		}
+		else {
+			model.addAttribute("allBooks",allBooks);
+			model.addAttribute("search",search);
+			
+			return "homepage.html";
+		}
 	}
 	
 	@PostMapping("/loginForm")
@@ -138,23 +152,22 @@ public class HomeController {
 	}
 	
 	
-	@RequestMapping("/destroy")
+	@GetMapping("/destroy")
 	private String destroySession(HttpServletRequest request,SessionStatus status) {
 		status.setComplete();
 		request.getSession().invalidate();
 		return "redirect:/home";
 	}
 	
-	@RequestMapping("/login")
+	@GetMapping("/login")
 	private String logIn(Login login){
 			return "login.html";
 	}
 	
-	@RequestMapping("/registration")
+	@GetMapping("/registration")
 	private String registration() {
 		return "signUpTypeSelection.html";
 	}
-	
 	
 	
 }

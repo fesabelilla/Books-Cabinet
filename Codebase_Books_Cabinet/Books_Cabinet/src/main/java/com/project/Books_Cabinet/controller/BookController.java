@@ -58,11 +58,12 @@ public class BookController {
 	Book book;
 	int userId;
 	int bookIds;
+	String sessionId;
 	
 	
 	
 
-	@RequestMapping("/addBook")
+	@GetMapping("/addBook")
 	private String bookAdd(Model model, Book book){
 		if (model.getAttribute("SessionId") == null) {
 			return "pageNotFound.html";
@@ -96,8 +97,9 @@ public class BookController {
 			        book.setPhotos(fileName);
 					
 			        String sessionId = (String) request.getSession().getAttribute("SessionId");
-			    
-			        book.setUserId(Integer.valueOf(sessionId));
+			        
+			        userId = Integer.valueOf(sessionId);
+			        book.setUserId(userId);
 			        
 			        bookRepo.save(book);
 			        
@@ -122,7 +124,7 @@ public class BookController {
 					redirectAttributes.addFlashAttribute("alertClass","alert-success");
 			        
 					
-					return "redirect:/addBook";	
+					return "redirect:/history";	
 				
 			}
 			
@@ -138,27 +140,40 @@ public class BookController {
 	}
 	
 	@GetMapping("/editBook")
-	private String updateBookInfo(@RequestParam String bookId, Model model,HttpServletRequest request) {
+	private String updateBookInfo(@RequestParam String bookId, Model model,HttpServletRequest request,
+			RedirectAttributes redirectAttributes) {
 		
-		String sessionID = (String) request.getSession().getAttribute("SessionId");
+		sessionId = (String) request.getSession().getAttribute("SessionId");
+		userId = Integer.valueOf(sessionId);
 		
-		if(sessionID == null) {
+		if(sessionId == null) {
 			return "pageNotFound.html";
 		}
 		else {
 			bookIds = Integer.parseInt(bookId);
 			book = bookRepo.getById(bookIds);
-			model.addAttribute("book",book);
 			
-			return "/books/editBook.html";
+			if(book.getUserId() == userId) {
+				model.addAttribute("book",book);
+				return "/books/editBook.html";
+			}
+			else {
+				redirectAttributes.addFlashAttribute("message", "Wrong Entry !!!");
+				redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+				
+				return "redirect:/history";
+			}
+			
+			
+			
 		}
 
 	}
 	
 	@PostMapping("/editBook/editBookForm")
 	private String editBookForm(@ModelAttribute Book book,HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		
 		String sessionId = (String) request.getSession().getAttribute("SessionId");
+		
 		
 		if(sessionId == null) {
 			return "pageNotFound.html";
@@ -166,14 +181,15 @@ public class BookController {
 		
 		else {
 			Book updateInfoBook = bookRepo.getOne(bookIds);
-			
+
 			updateInfoBook.setPrice(book.getPrice());
 			bookRepo.save(updateInfoBook);
-			
+
 			redirectAttributes.addFlashAttribute("message", "Price Updated Successfully!");
-		    redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+			redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+
+			return "redirect:/history";
 			
-		    return "redirect:/history";
 		}
 		
 			

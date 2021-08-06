@@ -15,7 +15,6 @@
 	<div style="height: 10px; background:#27aae1;"></div>
 
 	<!-- Nav-bar end-->
-	<div th:if="${bookAddMessage}" th:text="${bookAddMessage}" th:class="${'alert ' + alertClass}"></div>
 
 <p class="display-4">Fill Up Your Book Details - For Selling</p>
 	<form method="POST" action="addBookForm" role="form" th:object="${book}" enctype="multipart/form-data">

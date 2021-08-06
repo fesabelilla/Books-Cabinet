@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -28,8 +29,11 @@ public class HistoryController {
 	SellerRepo sellerRepo;
 	@Autowired
 	BookRepo bookRepo;
+
 	
-	@RequestMapping("/history")
+	Book book;
+	
+	@GetMapping("/history")
 	private String history(Model model,HttpServletRequest request) {
 		String sessionId =  (String) request.getSession().getAttribute("SessionId");
 		
@@ -47,7 +51,6 @@ public class HistoryController {
 				model.addAttribute("userOrder","user");
 				model.addAttribute("buyBooks",buyBooks);
 			}
-			
 			List<Book> listOfUnsoldBooks = bookRepo.findbyUserId(userId);
 			model.addAttribute("listOfUnsoldBooks",listOfUnsoldBooks);
 			
