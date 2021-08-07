@@ -82,7 +82,7 @@ public class HomeController {
 
 	@PostMapping("/searchBook")
 	private String searchBook(@RequestParam String search,Model model,RedirectAttributes redirectAttributes){
-		List<Book> allBooks = bookRepo.findSearchBook(search);
+		List<Book> allBooks = bookRepo.findBybookName(search);
 		
 		if(allBooks.isEmpty()) {
 			

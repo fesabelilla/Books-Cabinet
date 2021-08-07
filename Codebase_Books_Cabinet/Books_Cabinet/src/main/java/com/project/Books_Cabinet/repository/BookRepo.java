@@ -18,10 +18,13 @@ public interface BookRepo extends JpaRepository<Book, Integer>{
 	@Query("from Book where bookCondition='New'")
 	List<Book> findNewBook();
 
-	@Query("from Book where bookName LIKE %:search%")
-	List<Book> findSearchBook(@Param("search") String search);
+	//@Query("from Book where bookName LIKE %:search%")
+	//List<Book> findSearchBook(@Param("search") String search);
 	
 	@Query("from Book Where userId = ?1")
 	List<Book> findbyUserId(int userId);
+
+	@Query("from Book where bookName LIKE %?1%")
+	List<Book> findBybookName(String search);
 
 }

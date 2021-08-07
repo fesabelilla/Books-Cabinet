@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,6 +58,7 @@ public class UserController {
 				
 				int sellerLastId;
 				
+				/*
 				Collection<Seller> lastSellerInTheTable = sellerRepo.finds();
 				
 				try {
@@ -73,7 +75,8 @@ public class UserController {
 				
 				System.out.println(sellerLastId+1);
 				userRepo.save(user);
-				
+				*/
+				String passwordEncry = EncryptedPassword.getMd5(user.getPassword());
 				seller.setAddress(user.getAddress());
 				seller.setBirthday(user.getBirthday());
 				seller.setEmail(user.getEmail());
@@ -84,8 +87,15 @@ public class UserController {
 				seller.setPhoneNumber(user.getPhoneNumber());
 				seller.setSellerType(user.getUserType());
 				seller.setShopOrPublicationName("MyShop");
-				
+		
 				sellerRepo.save(seller);
+				
+				sellerLastId = seller.getsId();
+				System.out.println(sellerLastId);
+				user.setUserId(sellerLastId);
+				user.setPassword(passwordEncry);
+				userRepo.save(user);
+				
 				
 				
 				redirectAttributes.addFlashAttribute("message", "Account created!");
@@ -101,7 +111,7 @@ public class UserController {
 		
 	}
 	
-	@RequestMapping("/userRegistration")
+	@GetMapping("/userRegistration")
 	private String userRegistration(User user) {
 		msg = "";
 		return "/users/userRegistration.html";
